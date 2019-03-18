@@ -1,0 +1,66 @@
+﻿<nav id="notch">
+            
+    <a id="notch-button">
+        <img src="~/assets/icon/notchbutton.svg"/>
+    </a>
+
+    <div id="notch-menu" class="container .offset-sm-2">
+
+        <div class="row">
+
+            <div class="col-sm offset-2">
+
+                <div class="row">
+
+                    <h4>General Settings</h4>
+
+                    <ul>
+                        <li><a>Name</a></li>
+                        <li><a>Url&#39;s</a></li>
+                        <li><a>Theme</a></li>
+                    </ul>
+
+                </div>
+
+                <div class="row">
+
+                    <h4>Inventory</h4>
+
+                    <ul>
+                        <li><a asp-controller="Notch" asp-action="Products">Products</a></li>
+                        <li><a>Category</a></li>
+                    </ul>
+
+                </div>
+
+            </div>
+            <div class="col-sm">
+
+                <div class="row">
+
+                    <h4>Orders</h4>
+
+                    <ul>
+                        <li><a>Overview</a></li>
+                    </ul>
+
+                </div>
+
+                <div class="row">
+
+                    <h4>Pages</h4>
+
+                    <ul>
+                        <li><a>New Page</a></li>
+                        <li><a>Navigation</a></li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
