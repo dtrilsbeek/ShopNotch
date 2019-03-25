@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+using Data.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace ShopNotch
 {
 	public class Startup
@@ -29,10 +32,14 @@ namespace ShopNotch
 				// This lambda determines whether user consent for non-essential cookies is needed for a given request.
 				options.CheckConsentNeeded = context => true;
 				options.MinimumSameSitePolicy = SameSiteMode.None;
+
 			});
 
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+			var connection = @"Data Source=(localdb)\mssqllocaldb;AttachDbFilename=C:\Users\dtril\Documents\ShopNotch\TestDB.mdf;Initial Catalog=TestDb;Integrated Security=True";
+			services.AddDbContext<TestDbContext>(options => options.UseSqlServer(connection));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
