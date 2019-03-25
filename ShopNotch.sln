@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Logic\Logic.csproj", "{91815D32-00A7-4932-97C2-E9A850CA5A24}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{BCC95D9B-3045-49CA-A5E7-2286B8FFD1A1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{91815D32-00A7-4932-97C2-E9A850CA5A24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91815D32-00A7-4932-97C2-E9A850CA5A24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91815D32-00A7-4932-97C2-E9A850CA5A24}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BCC95D9B-3045-49CA-A5E7-2286B8FFD1A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BCC95D9B-3045-49CA-A5E7-2286B8FFD1A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BCC95D9B-3045-49CA-A5E7-2286B8FFD1A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BCC95D9B-3045-49CA-A5E7-2286B8FFD1A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Data.SqlTypes;
-
-namespace Data
+﻿namespace Data.Interfaces
 {
 	public interface IProduct
 	{
