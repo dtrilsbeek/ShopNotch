@@ -17,4 +17,10 @@
     <Folder Include="wwwroot\assets\img\" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj" />
+    <ProjectReference Include="..\Logic\Logic.csproj" />
+  </ItemGroup>
+
 </Project>
