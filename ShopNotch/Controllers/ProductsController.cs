@@ -11,9 +11,9 @@ namespace ShopNotch.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly TestDbContext _context;
+        private readonly ShopNotchDbContext _context;
 
-        public ProductsController(TestDbContext context)
+        public ProductsController(ShopNotchDbContext context)
         {
             _context = context;
         }

@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Data.Models
 {
-    public partial class TestDbContext : DbContext
+    public partial class ShopNotchDbContext : DbContext
     {
-        public TestDbContext()
+        public ShopNotchDbContext()
         {
         }
 
-        public TestDbContext(DbContextOptions<TestDbContext> options)
+        public ShopNotchDbContext(DbContextOptions<ShopNotchDbContext> options)
             : base(options)
         {
         }
@@ -31,7 +31,7 @@ namespace Data.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=mssql.fhict.local;Initial Catalog=dbi391176_elayed;Persist Security Info=False;User ID=dbi391176_elayed;Password=testappels123;Integrated Security=False;");
+                optionsBuilder.UseSqlServer("Data Source=mssql.fhict.local;Initial Catalog=dbi391176_elayed;Integrated Security=False;Persist Security Info=False;User ID=dbi391176_elayed;Password=testappels123;");
             }
         }
 
