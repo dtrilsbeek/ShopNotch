@@ -38,7 +38,8 @@ namespace ShopNotch
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-			var connection = @"Data Source=(localdb)\mssqllocaldb;AttachDbFilename=C:\Users\dtril\Documents\ShopNotch\TestDB.mdf;Initial Catalog=TestDb;Integrated Security=True";
+//			var connection = @"Data Source=(localdb)\mssqllocaldb;AttachDbFilename=C:\Users\dtril\Documents\ShopNotch\TestDB.mdf;Initial Catalog=TestDb;Integrated Security=True";
+			var connection = @"Data Source=mssql.fhict.local;Initial Catalog=dbi391176_elayed;Integrated Security=False;Persist Security Info=False;User ID=dbi391176_elayed;Password=testappels123;";
 			services.AddDbContext<TestDbContext>(options => options.UseSqlServer(connection));
 		}
 

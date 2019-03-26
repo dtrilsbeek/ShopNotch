@@ -16,6 +16,7 @@
         width: 40px;
         background-image: url('/assets/icon/notchbutton.svg');
         font-size: 30px;
+        transition: all .6s ease-out;
     }
 
 #notch {
@@ -27,14 +28,17 @@
     background-color: #0090ff;
     border-radius: 0 0 100% 0;
     -moz-transform: scale(.9999);
-    transition: all .6s ease-in;
+    transition: all .3s ease-in;
     overflow: hidden;
     z-index: 9999;
 }
     #notch:hover {
-        min-width: 100vw;
-        min-height: 100vh;
-        transition: all 1.0s ease-out;
+        min-width: 60vw;
+        min-height: 63vh;
+        transition: all .6s ease-out;
+    }
+    #notch:hover #notch-button img {
+        transform: rotate(90deg);
     }
     #notch h4 {
         width: 100%;
@@ -57,8 +61,8 @@
 
 #notch-menu {
     position: absolute;
-    top: 15vh;
-    left: 10vw;
+    top: 10vh;
+    left: 0;
 }
 
 #left-menu {
@@ -66,25 +70,44 @@
     padding-top: 8vh;
 }
     #left-menu .left-menu-block li, #left-menu .left-menu-block h5 {
-        opacity: 0.6;
+        opacity: 0.3;
     }
     #left-menu .active li, #left-menu .active h5 {
         opacity: 1;
     }
-#left-menu li:hover {
-    opacity: 1;
-    cursor: pointer;
-}
+    #left-menu li:hover {
+        opacity: 1;
+        cursor: pointer;
+    }
     #left-menu h4 {
 
     }
 
-#right-menu {
-    padding-top: 8vh;
+    #right-menu {
+        padding-top: 8vh;
+    }
+    #left-menu ul, #right-menu ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+#notch-collection-containter {
+    padding: 0 125px;
 }
-#left-menu ul, #right-menu ul {
-    list-style-type: none;
+.notch-card {
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
+.notch-card .notch-card-title {
+
+}
+.notch-card .notch-card-content {
+
+}
+
+
+
+
 
 @media (min-width: 1200px) {
     .container {
