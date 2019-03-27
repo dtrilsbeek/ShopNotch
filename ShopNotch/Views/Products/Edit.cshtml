@@ -43,7 +43,17 @@
     </div>
     <div class="col-6">
 
-        <h1>Edit Product</h1>
+        <div class="edit-header">
+            <div class="float-left">
+                <h1>Edit Product</h1>
+            </div>
+
+            <div class="float-right">
+                <input type="submit" value="Save" form="save-product" class="btn btn-primary" />
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
 
         <hr />
 
@@ -123,9 +133,9 @@
 
 
 
-            
-            
-            
+
+
+
         </form>
 
 
@@ -136,9 +146,9 @@
     </div>
     <div id="right-menu" class="col-3">
         <ul>
-            <li><input type="submit" value="Save" form="save-product" class="btn btn-primary" /></li>
-            <li><a>Add new product</a></li>
-            <li><a>Duplicate product</a></li>
+            <li><a asp-controller="Products" asp-action="Create">Add new product</a></li>
+            <li><a asp-controller="Products" asp-action="Duplicate" asp-route-id="@Model.Id">Duplicate product</a></li>
         </ul>
     </div>
+
 </div>

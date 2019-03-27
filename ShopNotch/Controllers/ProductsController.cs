@@ -148,5 +148,21 @@ namespace ShopNotch.Controllers
         {
             return _context.Product.Any(e => e.Id == id);
         }
+
+        
+        public async Task<IActionResult> Duplicate(int? id)
+        {
+	        if (id == null) { return NotFound(); }
+
+	        var product = _context.Product.AsNoTracking().FirstOrDefault(m => m.Id == id);
+	        if (product == null) { return NotFound(); }
+
+			product.Id = 0;
+			_context.Product.Add(product);
+	        
+	        await _context.SaveChangesAsync();
+
+			return RedirectToAction(nameof(Index));
+		}
     }
 }
