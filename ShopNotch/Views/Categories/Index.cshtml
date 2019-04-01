@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Data.Models.Category>
-
+﻿@* @model IEnumerable<Data.Models.Category> *@
+@model CreateViewModel
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_NotchLayout.cshtml";
@@ -17,13 +17,13 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ParentId)
+                @Html.DisplayNameFor(model => model.ParentName)
             </th>
             <th></th>
         </tr>
         </thead>
         <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Categories)
         {
             <tr>
                 <td>

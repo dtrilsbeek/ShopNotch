@@ -14,6 +14,7 @@ namespace ShopNotch.Models
 
 		public string Name { get; set; }
 		public int? ParentId { get; set; }
+		public string ParentName { get; set; }
 		public List<SelectListItem> CategoryNames { get; set; }
 
 		public CreateViewModel(List<Category> categories, List<Product> products)

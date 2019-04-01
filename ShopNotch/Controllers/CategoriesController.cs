@@ -48,9 +48,9 @@ namespace ShopNotch.Controllers
         {
 	        List<Product> products = _context.Product.ToList();
 	        List<Category> categories = _context.Category.ToList();
-
 			CreateViewModel model = new CreateViewModel(categories, products);
 
+			model.ParentName = _context.Category.Find(model.ParentId).Name;
 			model.CategoryNames = GetAllNames(categories);
 
 			return View(model);
