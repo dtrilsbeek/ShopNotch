@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data.Interfaces;
 
 namespace Data.Models
 {
-    public partial class Product
+    public partial class Product : IEntity
     {
         public Product()
         {

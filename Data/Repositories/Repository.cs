@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Data.Interfaces;
 
@@ -23,9 +24,14 @@ namespace Data.Repositories
 			throw new NotImplementedException();
 		}
 
-		public T FindById(int Id)
+		public T FindById(int id)
 		{
 			throw new NotImplementedException();
+		}
+
+		public IEnumerable<T> GetAll()
+		{
+			return List.ToList();
 		}
 	}
 }
