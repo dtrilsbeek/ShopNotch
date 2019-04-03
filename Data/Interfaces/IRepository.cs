@@ -6,7 +6,7 @@ namespace Data
 {
 	public interface IRepository<T> where T : IEntity
 	{
-		IEnumerable<T> List { get; }
+		IEnumerable<T> GetAll();
 		void Add(T entity);
 		void Delete(T entity);
 		void Update(T entity);

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Data;
+using Data.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using Data.Models;
+using Logic;
+using Logic.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace ShopNotch
@@ -34,6 +38,7 @@ namespace ShopNotch
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 
 			});
+			services.AddScoped<ILogic, ProductLogic>();
 
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

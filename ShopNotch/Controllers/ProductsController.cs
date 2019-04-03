@@ -2,30 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Data;
+using Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Data.Models;
+using Data.Repositories;
+using Logic;
+using Logic.Interfaces;
 
 namespace ShopNotch.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly ShopNotchDbContext _context;
+        private readonly ILogic _logic;
 
-        public ProductsController(ShopNotchDbContext context)
+        public ProductsController(ILogic logic)
         {
-            _context = context;
+            _logic = logic;
         }
 
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Product.ToListAsync());
+            return View(_logic.GetAll());
         }
 
         // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
+        /*public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -40,7 +45,7 @@ namespace ShopNotch.Controllers
             }
 
             return View(product);
-        }
+        }*/
 
         // GET: Products/Create
         public IActionResult Create()
@@ -51,7 +56,7 @@ namespace ShopNotch.Controllers
         // POST: Products/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        /*[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,Sku,Length,Width,Height")] Product product)
         {
@@ -62,10 +67,10 @@ namespace ShopNotch.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(product);
-        }
+        }*/
 
         // GET: Products/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        /*public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -79,11 +84,12 @@ namespace ShopNotch.Controllers
             }
             return View(product);
         }
+*/
 
         // POST: Products/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        /*[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Sku,StockQty,Length,Width,Height")] Product product)
         {
@@ -163,6 +169,6 @@ namespace ShopNotch.Controllers
 	        await _context.SaveChangesAsync();
 
 			return RedirectToAction(nameof(Index));
-		}
+		}*/
     }
 }
