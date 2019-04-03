@@ -18,26 +18,6 @@ namespace Data.Repositories
 			_context = context;
 		}
 
-		public void Add(T entity)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void Delete(T entity)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void Update(T entity)
-		{
-			throw new NotImplementedException();
-		}
-
-		public T FindById(int id)
-		{
-			throw new NotImplementedException();
-		}
-
 		public IEnumerable<IEntity> GetAll()
 		{
 			return _context.GetAll();

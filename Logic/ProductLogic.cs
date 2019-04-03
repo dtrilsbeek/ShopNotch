@@ -14,7 +14,7 @@ namespace Logic
 
 		public ProductLogic()
 		{
-			_productRepository = new Repository<Product>( new ProductContext() );
+			_productRepository = new Repository<Product>( new ProductSqlContext() );
 		}
 
 		public IEnumerable<Product> GetAll()

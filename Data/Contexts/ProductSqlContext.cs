@@ -8,7 +8,7 @@ using Data.Models;
 
 namespace Data.Contexts
 {
-	public class ProductContext : BaseDb<Product>, IContext
+	public class ProductSqlContext : BaseDb<Product>, IContext
 	{
 		public IEnumerable<IEntity> GetAll()
 		{
