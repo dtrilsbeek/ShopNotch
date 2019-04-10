@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Data.Interfaces;
 using Data.Models;
 
 namespace Data.Contexts
 {
-	public class ProductSqlContext : BaseDb<Product>, IRepository<Product>
+	public class ProductSqlContext : BaseDb<Product>, IContext<Product>
 	{
 		public IEnumerable<Product> GetAll()
 		{
@@ -27,7 +28,10 @@ namespace Data.Contexts
 
 		public void Delete(Product entity)
 		{
-			throw new System.NotImplementedException();
+			bool result = ExecuteNonQuery(
+				 "DELETE FROM Product" +
+				$"WHERE Id={entity.Id}"
+			);
 		}
 
 		public void Update(Product entity)
@@ -46,9 +50,12 @@ namespace Data.Contexts
 				$"WHERE Id = {entity.Id}");
 		}
 
-		public Product FindById(int id)
+		public Product GetById(int id)
 		{
-			throw new System.NotImplementedException();
+			return ExecuteQuery(
+				"SELECT * FROM Product" +
+				$"WHERE Id = {id}"
+			).First();
 		}
 
 		protected override void Map(IDataRecord record, Product entity)

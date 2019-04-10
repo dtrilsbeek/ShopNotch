@@ -10,6 +10,6 @@ namespace Data
 		void Add(T entity);
 		void Delete(T entity);
 		void Update(T entity);
-		T FindById(int id);
+		T GetById(int id);
 	}
 }

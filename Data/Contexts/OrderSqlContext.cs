@@ -7,7 +7,7 @@ using Data.Models;
 
 namespace Data.Contexts
 {
-	public class OrderContext : BaseDb<Order>, IContext
+	public class OrderSqlContext : BaseDb<Order>, IContext<Order>
 	{
 		protected override void Map(IDataRecord record, Order entity)
 		{
@@ -30,7 +30,27 @@ namespace Data.Contexts
 			return new Order();
 		}
 
-		public IEnumerable<IEntity> GetAll()
+		public IEnumerable<Order> GetAll()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Add(Order entity)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Delete(Order entity)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Update(Order entity)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Order GetById(int id)
 		{
 			throw new NotImplementedException();
 		}

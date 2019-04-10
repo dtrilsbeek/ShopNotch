@@ -16,36 +16,35 @@ namespace ShopNotch.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly ILogic _logic;
+        private readonly ProductLogic _productLogic;
 
-        public ProductsController(ILogic logic)
+        public ProductsController(ProductLogic productLogic)
         {
-            _logic = logic;
+	        _productLogic = productLogic;
         }
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(_logic.GetAll());
+            return View(_productLogic.GetAll());
         }
 
         // GET: Products/Details/5
-        /*public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
-                return NotFound();
-            }
+				return NotFound();
+			}
 
-            var product = await _context.Product
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
+			var product = _productLogic.GetById((int)id);
+			if (product == null)
+			{
+				return NotFound();
+			}
 
-            return View(product);
-        }*/
+			return View(product);
+        }
 
         // GET: Products/Create
         public IActionResult Create()

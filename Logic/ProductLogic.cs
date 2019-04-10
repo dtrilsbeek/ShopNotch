@@ -22,5 +22,10 @@ namespace Logic
 			return _productRepository.GetAll() as IEnumerable<Product>;
 		}
 
+		public Product GetById(int id)
+		{
+			return (Product) _productRepository.GetById(id);
+		}
+
 	}
 }

@@ -2,8 +2,16 @@
 
 namespace Data.Interfaces
 {
-	public interface IContext
+	public interface IContext<T> where T : IEntity
 	{
-		IEnumerable<IEntity> GetAll();
+		IEnumerable<T> GetAll();
+
+		void Add(T entity);
+
+		void Delete(T entity);
+
+		void Update(T entity);
+
+		T GetById(int id);
 	}
 }

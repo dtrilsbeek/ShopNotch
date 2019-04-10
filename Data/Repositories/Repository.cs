@@ -9,38 +9,38 @@ using Data.Models;
 
 namespace Data.Repositories
 {
-	public class Repository<T> : IRepository<IEntity> where T : class, IEntity
+	public class Repository<T> : IRepository<T> where T : IEntity
 	{
-		private IContext _context;
+		private IContext<T> _context;
 
-		public Repository(IContext context)
+		public Repository(IContext<T> context)
 		{
 			_context = context;
 		}
 
-		public IEnumerable<IEntity> GetAll()
+		public IEnumerable<T> GetAll()
 		{
 			return _context.GetAll();
 		}
 
-		public void Add(IEntity entity)
+		public void Add(T entity)
 		{
-			throw new NotImplementedException();
+			_context.Add(entity);
 		}
 
-		public void Delete(IEntity entity)
+		public void Delete(T entity)
 		{
-			throw new NotImplementedException();
+			_context.Delete(entity);
 		}
 
-		public void Update(IEntity entity)
+		public void Update(T entity)
 		{
-			throw new NotImplementedException();
+			_context.Update(entity);
 		}
 
-		IEntity IRepository<IEntity>.FindById(int id)
+		public T GetById(int id)
 		{
-			throw new NotImplementedException();
+			return _context.GetById(id);
 		}
 	}
 }
