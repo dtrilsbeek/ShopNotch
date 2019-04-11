@@ -8,7 +8,7 @@ using Logic.Interfaces;
 
 namespace Logic
 {
-	public class ProductLogic : ILogic
+	public class ProductLogic : ILogic<Product>
 	{
 		private Repository<Product> _productRepository;
 
@@ -19,12 +19,27 @@ namespace Logic
 
 		public IEnumerable<Product> GetAll()
 		{
-			return _productRepository.GetAll() as IEnumerable<Product>;
+			return _productRepository.GetAll();
+		}
+
+		public void Add(Product entity)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Delete(Product entity)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Update(Product entity)
+		{
+			throw new NotImplementedException();
 		}
 
 		public Product GetById(int id)
 		{
-			return (Product) _productRepository.GetById(id);
+			return _productRepository.GetById(id);
 		}
 
 	}

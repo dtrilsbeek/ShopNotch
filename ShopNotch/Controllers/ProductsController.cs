@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Data;
-using Data.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Data.Models;
-using Data.Repositories;
+﻿using Microsoft.AspNetCore.Mvc;
 using Logic;
 using Logic.Interfaces;
 

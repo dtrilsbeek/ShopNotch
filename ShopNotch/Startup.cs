@@ -38,8 +38,8 @@ namespace ShopNotch
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 
 			});
-			services.AddScoped<ILogic, ProductLogic>();
-
+			//			services.AddScoped<ILogic, ProductLogic>();
+			services.AddSingleton(typeof(ILogic<IEntity>), typeof(ProductLogic));
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
