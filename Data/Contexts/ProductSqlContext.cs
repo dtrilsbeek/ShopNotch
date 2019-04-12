@@ -53,8 +53,7 @@ namespace Data.Contexts
 		public Product GetById(int id)
 		{
 			return ExecuteQuery(
-				"SELECT * FROM Product" +
-				$"WHERE Id = {id}"
+				$"SELECT * FROM Product WHERE Id = {id}"
 			).First();
 		}
 

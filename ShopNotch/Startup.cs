@@ -38,14 +38,15 @@ namespace ShopNotch
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 
 			});
+
 			//			services.AddScoped<ILogic, ProductLogic>();
-			services.AddSingleton(typeof(ILogic<IEntity>), typeof(ProductLogic));
+//			services.AddSingleton<ILogic<Product>>( new ProductLogic());
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
 //			var connection = @"Data Source=(localdb)\mssqllocaldb;AttachDbFilename=C:\Users\dtril\Documents\ShopNotch\TestDB.mdf;Initial Catalog=TestDb;Integrated Security=True";
-			var connection = @"Data Source=mssql.fhict.local;Initial Catalog=dbi391176_elayed;Integrated Security=False;Persist Security Info=False;User ID=dbi391176_elayed;Password=testappels123;";
-			services.AddDbContext<ShopNotchDbContext>(options => options.UseSqlServer(connection));
+			//var connection = @"Data Source=mssql.fhict.local;Initial Catalog=dbi391176_elayed;Integrated Security=False;Persist Security Info=False;User ID=dbi391176_elayed;Password=testappels123;";
+			//services.AddDbContext<ShopNotchDbContext>(options => options.UseSqlServer(connection));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

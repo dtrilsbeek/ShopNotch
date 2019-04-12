@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Data.Models;
+using Microsoft.AspNetCore.Mvc;
 using Logic;
 using Logic.Interfaces;
 
@@ -8,9 +9,9 @@ namespace ShopNotch.Controllers
     {
         private readonly ProductLogic _productLogic;
 
-        public ProductsController(ProductLogic productLogic)
+        public ProductsController()
         {
-	        _productLogic = productLogic;
+	        _productLogic = new ProductLogic();
         }
 
         // GET: Products
@@ -45,35 +46,30 @@ namespace ShopNotch.Controllers
         // POST: Products/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        /*[HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,Sku,Length,Width,Height")] Product product)
+        public IActionResult Create([Bind("Id,Name,Description,Price,Sku,Length,Width,Height")] Product product)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
-                await _context.SaveChangesAsync();
+                _productLogic.Add(product);
+                
                 return RedirectToAction(nameof(Index));
             }
             return View(product);
-        }*/
+        }
 
         // GET: Products/Edit/5
-        /*public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) { return NotFound(); }
 
-            var product = await _context.Product.FindAsync(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
+            var product = _productLogic.GetById((int)id);
+
+            if (product == null) { return NotFound(); }
+
             return View(product);
         }
-*/
 
         // POST: Products/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
