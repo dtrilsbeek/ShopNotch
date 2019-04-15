@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
+using Data.Interfaces;
 
 namespace Data.Contexts
 {
@@ -10,11 +11,11 @@ namespace Data.Contexts
 	{
 		private string _connectionString = "Server=mssql.fhict.local;Database=dbi391176_elayed;User Id=dbi391176_elayed;Password=appelsenperen12;";
 
-		protected IEnumerable<TEntity> ExecuteQuery(string query)
+		protected IEnumerable<TEntity> ExecuteQuery(SqlCommand command)
 		{
 			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
-				SqlCommand command = new SqlCommand(query, connection);
+				command.Connection = connection;
 				connection.Open();
 				SqlDataReader reader = command.ExecuteReader();
 				try
@@ -36,11 +37,11 @@ namespace Data.Contexts
 			}
 		}
 
-		protected bool ExecuteNonQuery(string query)
+		protected bool ExecuteNonQuery(SqlCommand command)
 		{
 			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
-				SqlCommand command = new SqlCommand(query, connection);
+				command.Connection = connection;
 				connection.Open();
 				try
 				{

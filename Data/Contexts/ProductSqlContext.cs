@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using Data.Interfaces;
 using Data.Models;
@@ -10,7 +11,11 @@ namespace Data.Contexts
 	{
 		public IEnumerable<Product> GetAll()
 		{
-			return ExecuteQuery("SELECT * FROM Product");
+			SqlCommand command = new SqlCommand(
+				"SELECT * FROM Product"
+			);
+
+			return ExecuteQuery(command);
 		}
 
 		protected override Product CreateEntity()
@@ -20,41 +25,77 @@ namespace Data.Contexts
 
 		public void Add(Product entity)
 		{
-			bool result = ExecuteNonQuery(
-				"INSERT INTO Product" +
-				$"(Name, Description, Price, Sku, Length, Width, Height, StockQty, Weight)" +
-				$"WHERE Id = {entity.Id}");
+			string queryString =
+				"INSERT INTO Product " +
+				"(Name, Description, Price, Sku, Length, Width, Height, StockQty, Weight) " +
+				"VALUES (@Name, @Description, @Price, @Sku, @Length, @Width, @Height, @StockQty, @Weight)";
+
+			SqlCommand command = new SqlCommand(queryString);
+			command.Parameters.AddWithValue("@Name", entity.Name);
+			command.Parameters.AddWithValue("@Description", entity.Description);
+			command.Parameters.AddWithValue("@Price", entity.Price);
+			command.Parameters.AddWithValue("@Sku", entity.Sku);
+			command.Parameters.AddWithValue("@Length", entity.Length);
+			command.Parameters.AddWithValue("@Width", entity.Width);
+			command.Parameters.AddWithValue("@Height", entity.Height);
+			command.Parameters.AddWithValue("@StockQty", entity.StockQty);
+			command.Parameters.AddWithValue("@Weight", entity.Weight);
+
+			ExecuteNonQuery(command);
 		}
 
 		public void Delete(Product entity)
 		{
-			bool result = ExecuteNonQuery(
-				 "DELETE FROM Product" +
-				$"WHERE Id={entity.Id}"
-			);
+			SqlCommand command = new SqlCommand(
+				$"DELETE FROM Product WHERE Id=@Id"
+				);
+
+			command.Parameters.AddWithValue("@Id", entity.Id);
+
+			ExecuteNonQuery(command);
 		}
 
 		public void Update(Product entity)
 		{
-			bool result = ExecuteNonQuery(
+			string queryString =
 				"UPDATE Product " +
-				$"SET Name = '{entity.Name}', " +
-				$"Description = '{entity.Description}', " +
-				$"Price = {entity.Price}, " +
-				$"Sku = '{entity.Sku}', " +
-				$"Length = {entity.Length}, " +
-				$"Width = {entity.Width}, " +
-				$"Height = {entity.Height}, " +
-				$"StockQty = {entity.StockQty}, " +
-				$"Weight = {entity.Weight} " +
-				$"WHERE Id = {entity.Id}");
+				"SET " +
+				"Name = @Name, " +
+				"Description = @Description, " +
+				"Price = @Price, " +
+				"Sku = @Sku, " +
+				"Length = @Length, " +
+				"Width = @Width, " +
+				"Height = @Height, " +
+				"StockQty = @StockQty, " +
+				"Weight = @Weight " +
+				"WHERE Id = @Id";
+
+			SqlCommand command = new SqlCommand(queryString);
+			command.Parameters.AddWithValue("@Id", entity.Id);
+			command.Parameters.AddWithValue("@Name", entity.Name);
+			command.Parameters.AddWithValue("@Description", entity.Description);
+			command.Parameters.AddWithValue("@Price", entity.Price);
+			command.Parameters.AddWithValue("@Sku", entity.Sku);
+			command.Parameters.AddWithValue("@Length", entity.Length);
+			command.Parameters.AddWithValue("@Width", entity.Width);
+			command.Parameters.AddWithValue("@Height", entity.Height);
+			command.Parameters.AddWithValue("@StockQty", entity.StockQty);
+			command.Parameters.AddWithValue("@Weight", entity.Weight);
+
+			ExecuteNonQuery(command);
 		}
 
 		public Product GetById(int id)
 		{
-			return ExecuteQuery(
-				$"SELECT * FROM Product WHERE Id = {id}"
-			).First();
+			SqlCommand command = new SqlCommand(
+				$"SELECT * FROM Product WHERE Id = @Id"
+			);
+
+			command.Parameters.AddWithValue("@Id", id);
+
+
+			return ExecuteQuery(command).First();
 		}
 
 		protected override void Map(IDataRecord record, Product entity)
