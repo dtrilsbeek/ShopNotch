@@ -102,6 +102,14 @@
 
                 <div class="notch-card-content">
                     <div class="form-group">
+                        <label asp-for="Weight" class="control-label"></label>
+                        <input asp-for="Weight" class="form-control" />
+                        <span asp-validation-for="Weight" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="notch-card-content">
+                    <div class="form-group">
                         <label asp-for="Length" class="control-label"></label>
                         <input asp-for="Length" class="form-control" />
                         <span asp-validation-for="Length" class="text-danger"></span>

@@ -1,4 +1,5 @@
-﻿using Data.Models;
+﻿using System;
+using Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Logic;
 using Logic.Interfaces;
@@ -48,7 +49,7 @@ namespace ShopNotch.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Name,Description,Price,Sku,Length,Width,Height")] Product product)
+        public IActionResult Create([Bind("Id,Name,Description,Price,Sku,StockQty,Weight,Length,Width,Height")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -74,9 +75,9 @@ namespace ShopNotch.Controllers
         // POST: Products/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        /*[HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Sku,StockQty,Length,Width,Height")] Product product)
+        public IActionResult Edit(int id, [Bind("Id,Name,Description,Price,Sku,StockQty,Weight,Length,Width,Height")] Product product)
         {
             if (id != product.Id)
             {
@@ -85,37 +86,32 @@ namespace ShopNotch.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
+                //try
+                //{
+                    _productLogic.Update(product);
+                //}
+/*                catch (Exception e)
                 {
                     if (!ProductExists(product.Id))
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                    throw;
+                }*/
                 return RedirectToAction(nameof(Index));
             }
             return View(product);
         }
 
         // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var product = _productLogic.GetById((int) id);
             if (product == null)
             {
                 return NotFound();
@@ -127,33 +123,31 @@ namespace ShopNotch.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var product = await _context.Product.FindAsync(id);
-            _context.Product.Remove(product);
-            await _context.SaveChangesAsync();
+            var product = _productLogic.GetById(id);
+
+			_productLogic.Delete(product);
+            
             return RedirectToAction(nameof(Index));
         }
 
         private bool ProductExists(int id)
         {
-            return _context.Product.Any(e => e.Id == id);
+			return false; //(_productLogic.GetById(id))
         }
-
         
-        public async Task<IActionResult> Duplicate(int? id)
+        public IActionResult Duplicate(int? id)
         {
 	        if (id == null) { return NotFound(); }
 
-	        var product = _context.Product.AsNoTracking().FirstOrDefault(m => m.Id == id);
+	        var product = _productLogic.GetById((int) id);
 	        if (product == null) { return NotFound(); }
 
 			product.Id = 0;
-			_context.Product.Add(product);
-	        
-	        await _context.SaveChangesAsync();
+			_productLogic.Add(product);
 
 			return RedirectToAction(nameof(Index));
-		}*/
+		}
     }
 }

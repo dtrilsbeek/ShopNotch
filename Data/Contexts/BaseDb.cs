@@ -53,7 +53,7 @@ namespace Data.Contexts
 				}
 				catch (Exception ex)
 				{
-					return false;
+					throw;
 				}
 				return true;
 			}

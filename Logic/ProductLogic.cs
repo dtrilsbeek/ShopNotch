@@ -24,17 +24,17 @@ namespace Logic
 
 		public void Add(Product entity)
 		{
-			throw new NotImplementedException();
+			_productRepository.Add(entity);
 		}
 
 		public void Delete(Product entity)
 		{
-			throw new NotImplementedException();
+			_productRepository.Delete(entity);
 		}
 
 		public void Update(Product entity)
 		{
-			throw new NotImplementedException();
+			_productRepository.Update(entity);
 		}
 
 		public Product GetById(int id)

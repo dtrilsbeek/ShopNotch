@@ -37,16 +37,16 @@ namespace Data.Contexts
 		public void Update(Product entity)
 		{
 			bool result = ExecuteNonQuery(
-				"UPDATE Product" +
-				$"SET Name = {entity.Name}, " +
-				$"Description = {entity.Description}, " +
+				"UPDATE Product " +
+				$"SET Name = '{entity.Name}', " +
+				$"Description = '{entity.Description}', " +
 				$"Price = {entity.Price}, " +
-				$"Sku = {entity.Sku}, " +
+				$"Sku = '{entity.Sku}', " +
 				$"Length = {entity.Length}, " +
 				$"Width = {entity.Width}, " +
 				$"Height = {entity.Height}, " +
 				$"StockQty = {entity.StockQty}, " +
-				$"Weight = {entity.Weight}, " +
+				$"Weight = {entity.Weight} " +
 				$"WHERE Id = {entity.Id}");
 		}
 
