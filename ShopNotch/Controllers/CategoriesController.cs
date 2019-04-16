@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Data.Models;
 using Logic;
+using Logic.Interfaces;
 using ShopNotch.Models;
 
 namespace ShopNotch.Controllers
@@ -15,15 +16,17 @@ namespace ShopNotch.Controllers
     {
         private CategoryLogic _categoryLogic;
 
-        public CategoriesController(CategoryLogic logic)
+        public CategoriesController(ILogic<Category> logic)
         {
-	        _categoryLogic = logic;
+	        _categoryLogic = logic as CategoryLogic;
         }
 
         // GET: Categories
         public IActionResult Index()
         {
-            return View( _categoryLogic.GetAll());
+			CreateViewModel model = new CreateViewModel(_categoryLogic.GetAll());
+
+            return View( model );
         }
 
         // GET: Categories/Details/5
@@ -47,13 +50,20 @@ namespace ShopNotch.Controllers
         public IActionResult Create()
         {
 	        IEnumerable<Category> categories = _categoryLogic.GetAll();
-			CreateViewModel model = new CreateViewModel(categories);
 
-			if (model.ParentId != null)
+	        var enumerable = categories.ToList();
+	        CreateViewModel model = new CreateViewModel(enumerable)
+	        {
+		        CategoryNames = GetAllNames(enumerable)
+	        };
+
+
+	        if (model.ParentId != null)
 			{
 				model.ParentName = _categoryLogic.GetById((int) model.ParentId).Name;
-				model.CategoryNames = GetAllNames(categories);
 			}
+
+
 
 			return View(model);
         }

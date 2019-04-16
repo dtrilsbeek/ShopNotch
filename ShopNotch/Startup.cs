@@ -40,7 +40,8 @@ namespace ShopNotch
 			});
 
 			//			services.AddScoped<ILogic, ProductLogic>();
-//			services.AddSingleton<ILogic<Product>>( new ProductLogic());
+			services.AddSingleton<ILogic<Product>>( new ProductLogic());
+			services.AddSingleton<ILogic<Category>>( new CategoryLogic());
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

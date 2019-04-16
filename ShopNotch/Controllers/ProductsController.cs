@@ -10,9 +10,9 @@ namespace ShopNotch.Controllers
     {
         private readonly ProductLogic _productLogic;
 
-        public ProductsController(ProductLogic logic)
+        public ProductsController(ILogic<Product> logic)
         {
-	        _productLogic = logic;
+	        _productLogic = logic as ProductLogic;
         }
 
         // GET: Products
