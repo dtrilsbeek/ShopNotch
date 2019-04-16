@@ -10,9 +10,9 @@ namespace ShopNotch.Controllers
     {
         private readonly ProductLogic _productLogic;
 
-        public ProductsController()
+        public ProductsController(ProductLogic logic)
         {
-	        _productLogic = new ProductLogic();
+	        _productLogic = logic;
         }
 
         // GET: Products
@@ -86,18 +86,8 @@ namespace ShopNotch.Controllers
 
             if (ModelState.IsValid)
             {
-                //try
-                //{
-                    _productLogic.Update(product);
-                //}
-/*                catch (Exception e)
-                {
-                    if (!ProductExists(product.Id))
-                    {
-                        return NotFound();
-                    }
-                    throw;
-                }*/
+				_productLogic.Update(product);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(product);

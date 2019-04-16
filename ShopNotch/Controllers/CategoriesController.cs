@@ -6,35 +6,35 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Data.Models;
+using Logic;
 using ShopNotch.Models;
 
 namespace ShopNotch.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly ShopNotchDbContext _context;
+        private CategoryLogic _categoryLogic;
 
-        public CategoriesController(ShopNotchDbContext context)
+        public CategoriesController(CategoryLogic logic)
         {
-            _context = context;
+	        _categoryLogic = logic;
         }
 
         // GET: Categories
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Category.ToListAsync());
+            return View( _categoryLogic.GetAll());
         }
 
         // GET: Categories/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var category = _categoryLogic.GetById((int) id);
             if (category == null)
             {
                 return NotFound();
@@ -46,17 +46,19 @@ namespace ShopNotch.Controllers
         // GET: Categories/Create
         public IActionResult Create()
         {
-	        List<Product> products = _context.Product.ToList();
-	        List<Category> categories = _context.Category.ToList();
-			CreateViewModel model = new CreateViewModel(categories, products);
+	        IEnumerable<Category> categories = _categoryLogic.GetAll();
+			CreateViewModel model = new CreateViewModel(categories);
 
-			model.ParentName = _context.Category.Find(model.ParentId).Name;
-			model.CategoryNames = GetAllNames(categories);
+			if (model.ParentId != null)
+			{
+				model.ParentName = _categoryLogic.GetById((int) model.ParentId).Name;
+				model.CategoryNames = GetAllNames(categories);
+			}
 
 			return View(model);
         }
 
-        private List<SelectListItem> GetAllNames(List<Category> categories)
+        private List<SelectListItem> GetAllNames(IEnumerable<Category> categories)
         {
 	        List<SelectListItem> list = new List<SelectListItem>();
 
@@ -73,12 +75,12 @@ namespace ShopNotch.Controllers
 		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,ParentId")] Category category)
+        public IActionResult Create([Bind("Id,Name,ParentId")] Category category)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
-                await _context.SaveChangesAsync();
+                _categoryLogic.Add(category);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
@@ -92,7 +94,7 @@ namespace ShopNotch.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Category.FindAsync(id);
+            var category = _categoryLogic.GetById((int) id);
             if (category == null)
             {
                 return NotFound();
@@ -105,7 +107,7 @@ namespace ShopNotch.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ParentId")] Category category)
+        public IActionResult Edit(int id, [Bind("Id,Name,ParentId")] Category category)
         {
             if (id != category.Id)
             {
@@ -116,8 +118,7 @@ namespace ShopNotch.Controllers
             {
                 try
                 {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
+                    _categoryLogic.Update(category);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -136,15 +137,14 @@ namespace ShopNotch.Controllers
         }
 
         // GET: Categories/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var category = _categoryLogic.GetById((int) id);
             if (category == null)
             {
                 return NotFound();
@@ -156,17 +156,17 @@ namespace ShopNotch.Controllers
         // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var category = await _context.Category.FindAsync(id);
-            _context.Category.Remove(category);
-            await _context.SaveChangesAsync();
+	        var category = _categoryLogic.GetById(id);
+            _categoryLogic.Delete(category);
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool CategoryExists(int id)
         {
-            return _context.Category.Any(e => e.Id == id);
+	        return (_categoryLogic.GetById(id) != null);
         }
     }
 }
