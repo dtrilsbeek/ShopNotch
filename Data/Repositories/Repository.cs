@@ -11,7 +11,7 @@ namespace Data.Repositories
 {
 	public class Repository<T> : IRepository<T> where T : IEntity
 	{
-		private IContext<T> _context;
+		private readonly IContext<T> _context;
 
 		public Repository(IContext<T> context)
 		{

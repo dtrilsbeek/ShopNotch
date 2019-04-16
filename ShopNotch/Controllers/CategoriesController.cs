@@ -57,6 +57,7 @@ namespace ShopNotch.Controllers
 		        CategoryNames = GetAllNames(enumerable)
 	        };
 
+	        //IEnumerable<Category> parentCategories = _categoryLogic.GetParentCategories();
 
 	        if (model.ParentId != null)
 			{

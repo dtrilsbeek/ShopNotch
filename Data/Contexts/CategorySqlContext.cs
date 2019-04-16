@@ -18,6 +18,22 @@ namespace Data.Contexts
 			return ExecuteQuery(command);
 		}
 
+		public IEnumerable<Category> GetParentCategories(Category category)
+		{
+			SqlCommand command = new SqlCommand(
+		 "SELECT * FROM [Category] "+
+				"WHERE Id IN (" +
+					"SELECT CategoryId " +
+					"FROM ParentCategories " +
+					"WHERE CategoryId = @Id " +
+				")"
+			);
+
+			command.Parameters.AddWithValue("@Id", category.Id);
+
+			return ExecuteQuery(command);
+		}
+
 		protected override Category CreateEntity()
 		{
 			return new Category();
@@ -27,12 +43,11 @@ namespace Data.Contexts
 		{
 			string queryString =
 				"INSERT INTO Category " +
-				"(Name, ParentId) " +
-				"VALUES (@Name, @ParentId)";
+				"(Name) " +
+				"VALUES (@Name)";
 
 			SqlCommand command = new SqlCommand(queryString);
 			command.Parameters.AddWithValue("@Name", entity.Name);
-			command.Parameters.AddWithValue("@ParentId", entity.ParentId);
 
 			ExecuteNonQuery(command);
 		}
@@ -53,14 +68,12 @@ namespace Data.Contexts
 			string queryString =
 				"UPDATE Category " +
 				"SET " +
-				"Name = @Name, " +
-				"ParentId = @ParentId, " +
+				"Name = @Name " +
 				"WHERE Id = @Id";
 
 			SqlCommand command = new SqlCommand(queryString);
 			command.Parameters.AddWithValue("@Id", entity.Id);
 			command.Parameters.AddWithValue("@Name", entity.Name);
-			command.Parameters.AddWithValue("@ParentId", entity.ParentId);
 
 			ExecuteNonQuery(command);
 		}
@@ -81,7 +94,7 @@ namespace Data.Contexts
 		{
 			entity.Id = (int)record["Id"];
 			entity.Name = ConvertFromDbVal<string>(record["Name"]);
-			entity.ParentId = ConvertFromDbVal<int?>(record["ParentId"]);
+			entity.ParentCategories = GetParentCategories(entity);
 		}
 	}
 }

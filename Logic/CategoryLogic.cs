@@ -11,10 +11,14 @@ namespace Logic
 	public class CategoryLogic : ILogic<Category>
 	{
 		private Repository<Category> _categoryRepository;
+		private CategorySqlContext _context;
 
 		public CategoryLogic()
 		{
-			_categoryRepository = new Repository<Category>( new CategorySqlContext() );
+			// Bij gebrek aan beter.
+			// TODO: How to extend repository functionality that is not generic
+			_context = new CategorySqlContext();
+			_categoryRepository = new Repository<Category>( _context );
 		}
 
 		public IEnumerable<Category> GetAll()
@@ -42,5 +46,9 @@ namespace Logic
 			return _categoryRepository.GetById(id);
 		}
 
+		public IEnumerable<Category> GetParentCategories(Category category)
+		{
+			return _context.GetParentCategories(category);
+		}
 	}
 }
