@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Data.Models;
 using Logic;
 using Logic.Interfaces;
+using Microsoft.AspNetCore.Http;
 using ShopNotch.Models;
 
 namespace ShopNotch.Controllers
@@ -24,7 +25,10 @@ namespace ShopNotch.Controllers
         // GET: Categories
         public IActionResult Index()
         {
-			CreateViewModel model = new CreateViewModel(_categoryLogic.GetAll());
+			CreateViewModel model = new CreateViewModel
+			{
+				Categories = _categoryLogic.GetAll()
+			};
 
             return View( model );
         }
@@ -52,17 +56,18 @@ namespace ShopNotch.Controllers
 	        IEnumerable<Category> categories = _categoryLogic.GetAll();
 
 	        var enumerable = categories.ToList();
-	        CreateViewModel model = new CreateViewModel(enumerable)
+	        CreateViewModel model = new CreateViewModel()
 	        {
-		        CategoryNames = GetAllNames(enumerable)
+				Categories = enumerable,
+				CategoryNames = GetAllNames(enumerable)
 	        };
 
 	        //IEnumerable<Category> parentCategories = _categoryLogic.GetParentCategories();
 
-	        if (model.ParentId != null)
-			{
-				model.ParentName = _categoryLogic.GetById((int) model.ParentId).Name;
-			}
+//	        if (model.ParentId != null)
+//			{
+//				model.ParentName = _categoryLogic.GetById((int) model.ParentId).Name;
+//			}
 
 
 
@@ -86,11 +91,24 @@ namespace ShopNotch.Controllers
 		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Name,ParentId")] Category category)
+        public IActionResult Create(CreateViewModel model)
         {
-            if (ModelState.IsValid)
+	        Category category = new Category
+	        {
+		        Id = 0,
+		        Name = model.Name
+	        };
+
+			if (ModelState.IsValid)
             {
-                _categoryLogic.Add(category);
+	            if (model.ParentCategories.Length > 0)
+	            {
+					_categoryLogic.Add(category, model.ParentCategories);
+				}
+	            else
+	            {
+		            _categoryLogic.Add(category);
+	            }
 
                 return RedirectToAction(nameof(Index));
             }
@@ -98,7 +116,7 @@ namespace ShopNotch.Controllers
         }
 
         // GET: Categories/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {

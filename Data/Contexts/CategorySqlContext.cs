@@ -94,7 +94,39 @@ namespace Data.Contexts
 		{
 			entity.Id = (int)record["Id"];
 			entity.Name = ConvertFromDbVal<string>(record["Name"]);
-			entity.ParentCategories = GetParentCategories(entity);
+			//entity.ParentCategories = ConvertFromDbVal<string>(record[""]);
+		}
+
+		public void SetParentCategory(Category category, int parentCategory)
+		{
+			string queryString =
+				"INSERT INTO ParentCategory" +
+				"(CategoryId, ParentId) " +
+				"VALUES (@CategoryId, @ParentId)";
+
+			SqlCommand command = new SqlCommand(queryString);
+			command.Parameters.AddWithValue("@CategoryId", category.Id);
+			command.Parameters.AddWithValue("@ParentId", parentCategory);
+
+			ExecuteNonQuery(command);
+
+		}
+
+		public Category AddReturn(Category entity)
+		{
+			string queryString =
+				"DECLARE @ReturnTableVar table( Id int, Name nvarchar(100) ); " +
+				"INSERT Category " +
+				"(Name) " +
+				"OUTPUT INSERTED.Id, INSERTED.Name " +
+				"INTO @ReturnTableVar " +
+				"VALUES (@Name); " +
+				"SELECT Id, Name FROM @ReturnTableVar;";
+
+			SqlCommand command = new SqlCommand(queryString);
+			command.Parameters.AddWithValue("@Name", entity.Name);
+
+			return ExecuteQuery(command).First();
 		}
 	}
 }

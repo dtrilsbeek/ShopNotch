@@ -15,8 +15,9 @@ namespace Logic
 
 		public CategoryLogic()
 		{
+
+			// TODO: How to extend repository with functionality that is not generic
 			// Bij gebrek aan beter.
-			// TODO: How to extend repository functionality that is not generic
 			_context = new CategorySqlContext();
 			_categoryRepository = new Repository<Category>( _context );
 		}
@@ -29,6 +30,12 @@ namespace Logic
 		public void Add(Category entity)
 		{
 			_categoryRepository.Add(entity);
+		}
+		public void Add(Category entity, int[] parentCategories)
+		{
+			Category category = _context.AddReturn(entity);
+
+			SetParentCategories(category, parentCategories);
 		}
 
 		public void Delete(Category entity)
@@ -49,6 +56,13 @@ namespace Logic
 		public IEnumerable<Category> GetParentCategories(Category category)
 		{
 			return _context.GetParentCategories(category);
+		}
+		public void SetParentCategories(Category category, int[] parentCategories)
+		{
+			foreach (int parentCategory in parentCategories)
+			{
+				_context.SetParentCategory(category, parentCategory);
+			}
 		}
 	}
 }
