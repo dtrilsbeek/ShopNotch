@@ -25,7 +25,7 @@ namespace ShopNotch.Controllers
         // GET: Categories
         public IActionResult Index()
         {
-			CreateViewModel model = new CreateViewModel
+			CategoryViewModel model = new CategoryViewModel
 			{
 				Categories = _categoryLogic.GetAll()
 			};
@@ -47,7 +47,18 @@ namespace ShopNotch.Controllers
                 return NotFound();
             }
 
-            return View(category);
+            CategoryViewModel model = new CategoryViewModel
+            {
+	            Category = category,
+            };
+
+            if (category.ParentId != null)
+            {
+	            model.ParentCategory = _categoryLogic.GetById((int) category.ParentId);
+
+            }
+
+			return View(model);
         }
 
         // GET: Categories/Create
@@ -56,20 +67,11 @@ namespace ShopNotch.Controllers
 	        IEnumerable<Category> categories = _categoryLogic.GetAll();
 
 	        var enumerable = categories.ToList();
-	        CreateViewModel model = new CreateViewModel()
+	        CategoryViewModel model = new CategoryViewModel()
 	        {
-				Categories = enumerable,
-				CategoryNames = GetAllNames(enumerable)
+		        Categories = enumerable,
+		        CategoryNames = GetAllNames(enumerable)
 	        };
-
-	        //IEnumerable<Category> parentCategories = _categoryLogic.GetParentCategories();
-
-//	        if (model.ParentId != null)
-//			{
-//				model.ParentName = _categoryLogic.GetById((int) model.ParentId).Name;
-//			}
-
-
 
 			return View(model);
         }
@@ -91,25 +93,19 @@ namespace ShopNotch.Controllers
 		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CreateViewModel model)
+        public IActionResult Create(CategoryViewModel model)
         {
 	        Category category = new Category
 	        {
 		        Id = 0,
-		        Name = model.Name
+		        Name = model.Name,
+				ParentId = model.SelectedParent
 	        };
 
 			if (ModelState.IsValid)
             {
-	            if (model.ParentCategories.Length > 0)
-	            {
-					_categoryLogic.Add(category, model.ParentCategories);
-				}
-	            else
-	            {
-		            _categoryLogic.Add(category);
-	            }
-
+	            _categoryLogic.Add(category);
+				
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
@@ -128,7 +124,15 @@ namespace ShopNotch.Controllers
             {
                 return NotFound();
             }
-            return View(category);
+
+            CategoryViewModel model = new CategoryViewModel
+            {
+	            Category = category,
+            };
+
+
+
+            return View(model);
         }
 
         // POST: Categories/Edit/5

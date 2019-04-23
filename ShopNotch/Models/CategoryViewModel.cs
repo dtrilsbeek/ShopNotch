@@ -7,15 +7,16 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ShopNotch.Models
 {
-	public class CreateViewModel
+	public class CategoryViewModel
 	{
-		public string Name { get; set; }
+		public Category Category { get; set; }
+		public Category ParentCategory { get; set; }
 		public IEnumerable<Category> Categories { get; set; }
 		public List<SelectListItem> CategoryNames { get; set; }
+		public int? SelectedParent { get; set; }
+		public string Name { get; set; }
 
-		public int[] ParentCategories { get; set; }
-
-		public CreateViewModel()
+		public CategoryViewModel()
 		{
 			
 		}

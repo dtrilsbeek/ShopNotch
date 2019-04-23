@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -42,12 +43,14 @@ namespace Data.Contexts
 		public void Add(Category entity)
 		{
 			string queryString =
-				"INSERT INTO Category " +
-				"(Name) " +
-				"VALUES (@Name)";
+				@"INSERT INTO Category 
+				(Name, ParentId)
+				VALUES (@Name, @ParentId)
+				";
 
 			SqlCommand command = new SqlCommand(queryString);
 			command.Parameters.AddWithValue("@Name", entity.Name);
+			command.Parameters.AddWithValue("@ParentId", entity.ParentId ?? (object)DBNull.Value);
 
 			ExecuteNonQuery(command);
 		}

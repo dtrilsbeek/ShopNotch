@@ -1,4 +1,4 @@
-﻿@model CreateViewModel
+﻿@model CategoryViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -19,9 +19,9 @@
                 </div>
                 
                 <div class="form-group">
-                    <label asp-for="ParentCategories" class="control-label">Select Parent Categories</label>
+                    <label asp-for="SelectedParent" class="control-label">Select Parent Category</label>
 
-                    @Html.ListBoxFor(o => o.ParentCategories, Model.CategoryNames , new { @class = "form-control" })
+                    @Html.DropDownListFor(o => o.SelectedParent, Model.CategoryNames , new { @class = "form-control" })
 
                 </div>
 
