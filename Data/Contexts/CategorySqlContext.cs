@@ -43,10 +43,9 @@ namespace Data.Contexts
 		public void Add(Category entity)
 		{
 			string queryString =
-				@"INSERT INTO Category 
-				(Name, ParentId)
-				VALUES (@Name, @ParentId)
-				";
+				"INSERT INTO Category " +
+				"(Name, ParentId) " +
+				"VALUES (@Name, @ParentId) ";
 
 			SqlCommand command = new SqlCommand(queryString);
 			command.Parameters.AddWithValue("@Name", entity.Name);
@@ -97,7 +96,7 @@ namespace Data.Contexts
 		{
 			entity.Id = (int)record["Id"];
 			entity.Name = ConvertFromDbVal<string>(record["Name"]);
-			//entity.ParentCategories = ConvertFromDbVal<string>(record[""]);
+			entity.ParentId = ConvertFromDbVal<int?>(record["ParentId"]);
 		}
 
 		public void SetParentCategory(Category category, int parentCategory)
