@@ -15,7 +15,6 @@ namespace Logic
 
 		public CategoryLogic()
 		{
-
 			// TODO: How to extend repository with functionality that is not generic
 			// Bij gebrek aan beter.
 			_context = new CategorySqlContext();
