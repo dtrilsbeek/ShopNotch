@@ -10,36 +10,75 @@
     <p>
         <a asp-action="Create">Create New</a>
     </p>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Category.Name)
-            </th>
-            <th>
-                Parent Category
-            </th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var item in Model.Categories)
+
+    <ul class="category-tree">
+
+        @foreach (var item in Model.Tree.MainNode.Categories)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Parent.Name)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+        <li>
+        <span class="caret">@item.Name</span>
+            <ul class="nested">
+            <li>
+                @foreach (var subNode in Model.Tree.MainNode.SubNodes)
+                {
+                    foreach (var category in subNode.Categories)
+                    {
+                        <li>@category.Name</li>
+                    }
+                
+                    <span class="caret">@subNode.Category.Name</span>
+                    <ul class="nested">
+
+                        @foreach (var subNodeSub in subNode.SubNodes)
+                        {
+                            foreach (var category in subNodeSub.Categories)
+                            {
+                                <li>@category.Name</li>
+                            }
+                        }
+                    </ul>
+                }
+            </li>
+            </ul>
+        </li>
         }
-        </tbody>
-    </table>
+        
+    </ul>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Category.Name)
+                        </th>
+                        <th>
+                            Parent Category
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item2 in Model.Categories)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item2.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item2.Parent.Name)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item2.Id">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item2.Id">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item2.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
 
 </div>

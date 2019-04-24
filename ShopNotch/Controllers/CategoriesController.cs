@@ -27,7 +27,8 @@ namespace ShopNotch.Controllers
         {
 			CategoryViewModel model = new CategoryViewModel
 			{
-				Categories = _categoryLogic.GetAll()
+				Categories = _categoryLogic.GetAll(),
+				Tree = _categoryLogic.GetCategoryTree()
 			};
 
             return View( model );
@@ -68,36 +69,6 @@ namespace ShopNotch.Controllers
 	        };
 
 			return View(model);
-        }
-
-        private List<SelectListItem> GetAllNames(IEnumerable<Category> categories)
-        {
-	        List<SelectListItem> list = new List<SelectListItem>();
-
-	        foreach (Category category in categories)
-	        {
-		        list.Add(new SelectListItem(category.Name, category.Id.ToString()));
-	        }
-
-	        return list;
-        }
-        private List<SelectListItem> GetAllNames(IEnumerable<Category> categories, Category selected)
-        {
-	        List<SelectListItem> list = new List<SelectListItem>();
-
-	        foreach (Category category in categories)
-	        {
-		        if (category.Id == selected.Id)
-		        {
-					list.Add(new SelectListItem(category.Name, category.Id.ToString(), true));
-				}
-		        else
-		        {
-					list.Add(new SelectListItem(category.Name, category.Id.ToString()));
-				}
-	        }
-
-	        return list;
         }
 
 		// POST: Categories/Create
@@ -217,5 +188,36 @@ namespace ShopNotch.Controllers
         {
 	        return (_categoryLogic.GetById(id) != null);
         }
-    }
+
+        private List<SelectListItem> GetAllNames(IEnumerable<Category> categories)
+        {
+	        List<SelectListItem> list = new List<SelectListItem>();
+
+	        foreach (Category category in categories)
+	        {
+		        list.Add(new SelectListItem(category.Name, category.Id.ToString()));
+	        }
+
+	        return list;
+        }
+        private List<SelectListItem> GetAllNames(IEnumerable<Category> categories, Category selected)
+        {
+	        List<SelectListItem> list = new List<SelectListItem>();
+
+	        foreach (Category category in categories)
+	        {
+		        if (category.Id == selected.Id)
+		        {
+			        list.Add(new SelectListItem(category.Name, category.Id.ToString(), true));
+		        }
+		        else
+		        {
+			        list.Add(new SelectListItem(category.Name, category.Id.ToString()));
+		        }
+	        }
+
+	        return list;
+        }
+
+	}
 }

@@ -7,23 +7,33 @@ namespace Logic
 {
 	public class Node
 	{
-		public Node SubNode { get; set; }
+		public List<Node> SubNodes { get; set; }
 		public List<Category> Categories { get; set; }
 		public Category Category { get; set; }
 
+		public Node()
+		{
+			SubNodes = new List<Node>();
+			Categories = new List<Category>();
+		}
+
 		public void AddToSubNode(Category category)
 		{
-			if (SubNode != null)
+			foreach (Node subNode in SubNodes)
 			{
-				SubNode.AddCategory(category);
-			}
-			else
-			{
-				SubNode = new Node()
+				if (subNode != null)
 				{
-					Category = category,
-				};
+					subNode.AddCategory(category);
+				}
+				else
+				{
+					SubNodes.Add(new Node
+					{
+						Category = category,
+					});
+				}
 			}
+			
 		}
 
 		public void AddCategory(Category newCategory)

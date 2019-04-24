@@ -52,6 +52,11 @@ namespace Logic
 			return _categoryRepository.GetById(id);
 		}
 
+		public CategoryTree GetCategoryTree()
+		{
+			return new CategoryTree(_categoryRepository.GetAll().ToList());
+		}
+
 		public IEnumerable<Category> GetParentCategories(Category category)
 		{
 			return _context.GetParentCategories(category);
