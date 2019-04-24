@@ -52,11 +52,11 @@ namespace ShopNotch.Controllers
 	            Category = category,
             };
 
-            if (category.ParentId != null)
-            {
-	            model.ParentCategory = _categoryLogic.GetById((int) category.ParentId);
-
-            }
+//            if (category.ParentCategory != null)
+//            {
+//	            model.ParentCategory = _categoryLogic.GetById((int) category.ParentId);
+//
+//            }
 
 			return View(model);
         }

@@ -10,10 +10,25 @@ namespace Data.Contexts
 {
 	public class CategorySqlContext : BaseDb<Category>, IContext<Category>
 	{
-		public IEnumerable<Category> GetAll()
+		/*public IEnumerable<Category> GetAll()
 		{
 			SqlCommand command = new SqlCommand(
 				"SELECT * FROM Category"
+			);
+
+			return ExecuteQuery(command);
+		}*/
+
+		public IEnumerable<Category> GetAll()
+		{
+			SqlCommand command = new SqlCommand(
+				"SELECT " +
+						"	child.Id," +
+						"	child.Name," +
+						"	parent.Id AS ParentId, " +
+				"parent.Name AS ParentName " +
+				"FROM Category AS child " +
+				"LEFT JOIN Category AS parent ON child.ParentId = parent.Id"
 			);
 
 			return ExecuteQuery(command);
@@ -92,13 +107,6 @@ namespace Data.Contexts
 			return ExecuteQuery(command).First();
 		}
 
-		protected override void Map(IDataRecord record, Category entity)
-		{
-			entity.Id = (int)record["Id"];
-			entity.Name = ConvertFromDbVal<string>(record["Name"]);
-			entity.ParentId = ConvertFromDbVal<int?>(record["ParentId"]);
-		}
-
 		public void SetParentCategory(Category category, int parentCategory)
 		{
 			string queryString =
@@ -129,6 +137,26 @@ namespace Data.Contexts
 			command.Parameters.AddWithValue("@Name", entity.Name);
 
 			return ExecuteQuery(command).First();
+		}
+
+
+		protected override void Map(IDataRecord record, Category entity)
+		{
+			entity.Id = (int)record["Id"];
+			entity.Name = ConvertFromDbVal<string>(record["Name"]);
+
+			int? pId = ConvertFromDbVal<int?>(record["ParentId"]);
+			string pName = ConvertFromDbVal<string>(record["ParentName"]);
+			if (pId != null)
+			{
+				entity.Parent = new Category()
+				{
+					Id = (int) pId,
+					Name = pName
+				};
+			}
+
+			
 		}
 	}
 }

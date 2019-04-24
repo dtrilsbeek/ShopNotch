@@ -10,7 +10,7 @@ namespace ShopNotch.Models
 	public class CategoryViewModel
 	{
 		public Category Category { get; set; }
-		public Category ParentCategory { get; set; }
+		//public Category ParentCategory { get; set; }
 		public IEnumerable<Category> Categories { get; set; }
 		public List<SelectListItem> CategoryNames { get; set; }
 		public int? SelectedParent { get; set; }
