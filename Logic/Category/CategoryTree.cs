@@ -5,21 +5,21 @@ using Data.Models;
 
 namespace Logic
 {
-	class CategoryTree
+	public class CategoryTree
 	{
-		public List<Node> MainNodes { get; set; }
+		public Node MainNode { get; set; }
 
 		public CategoryTree(List<Category> categories)
 		{
-			MainNodes = new List<Node>();
-			CreateMainNodes(categories);
+			MainNode = new Node();
+			CreateTree(categories);
 		}
 
-		private void CreateMainNodes(List<Category> categories)
+		private void CreateTree(List<Category> categories)
 		{
 			foreach (Category category in categories)
 			{
-				
+				MainNode.AddCategory(category);
 			}
 		}
 	}
