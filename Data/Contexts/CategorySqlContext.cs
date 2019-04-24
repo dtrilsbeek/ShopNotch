@@ -34,6 +34,25 @@ namespace Data.Contexts
 			return ExecuteQuery(command);
 		}
 
+		public Category GetById(int id)
+		{
+			SqlCommand command = new SqlCommand(
+				"SELECT " +
+				"	child.Id," +
+				"	child.Name," +
+				"	parent.Id AS ParentId, " +
+				"parent.Name AS ParentName " +
+				"FROM Category AS child " +
+				"LEFT JOIN Category AS parent ON child.ParentId = parent.Id " +
+				"WHERE child.Id = @Id"
+			);
+
+			command.Parameters.AddWithValue("@Id", id);
+
+
+			return ExecuteQuery(command).First();
+		}
+
 		public IEnumerable<Category> GetParentCategories(Category category)
 		{
 			SqlCommand command = new SqlCommand(
@@ -85,26 +104,15 @@ namespace Data.Contexts
 			string queryString =
 				"UPDATE Category " +
 				"SET " +
-				"Name = @Name " +
+				"Name = @Name, ParentId = @ParentId " +
 				"WHERE Id = @Id";
 
 			SqlCommand command = new SqlCommand(queryString);
 			command.Parameters.AddWithValue("@Id", entity.Id);
 			command.Parameters.AddWithValue("@Name", entity.Name);
+			command.Parameters.AddWithValue("@ParentId", entity.ParentId ?? (object)DBNull.Value);
 
 			ExecuteNonQuery(command);
-		}
-
-		public Category GetById(int id)
-		{
-			SqlCommand command = new SqlCommand(
-				$"SELECT * FROM Category WHERE Id = @Id"
-			);
-
-			command.Parameters.AddWithValue("@Id", id);
-
-
-			return ExecuteQuery(command).First();
 		}
 
 		public void SetParentCategory(Category category, int parentCategory)

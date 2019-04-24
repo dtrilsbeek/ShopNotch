@@ -52,11 +52,6 @@ namespace ShopNotch.Controllers
 	            Category = category,
             };
 
-//            if (category.ParentCategory != null)
-//            {
-//	            model.ParentCategory = _categoryLogic.GetById((int) category.ParentId);
-//
-//            }
 
 			return View(model);
         }
@@ -87,6 +82,24 @@ namespace ShopNotch.Controllers
 
 	        return list;
         }
+        private List<SelectListItem> GetAllNames(IEnumerable<Category> categories, Category selected)
+        {
+	        List<SelectListItem> list = new List<SelectListItem>();
+
+	        foreach (Category category in categories)
+	        {
+		        if (category.Id == selected.Id)
+		        {
+					list.Add(new SelectListItem(category.Name, category.Id.ToString(), true));
+				}
+		        else
+		        {
+					list.Add(new SelectListItem(category.Name, category.Id.ToString()));
+				}
+	        }
+
+	        return list;
+        }
 
 		// POST: Categories/Create
 		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -108,7 +121,7 @@ namespace ShopNotch.Controllers
 				
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(model);
         }
 
         // GET: Categories/Edit/5
@@ -130,7 +143,7 @@ namespace ShopNotch.Controllers
 	            Category = category,
             };
 
-
+            model.CategoryNames = category.Parent != null ? GetAllNames(_categoryLogic.GetAll(), category.Parent) : GetAllNames(_categoryLogic.GetAll());
 
             return View(model);
         }
@@ -140,22 +153,26 @@ namespace ShopNotch.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,Name,ParentId")] Category category)
+        public IActionResult Edit(int id, CategoryViewModel model)
         {
-            if (id != category.Id)
+            if (id != model.Category.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
+	            if (model.SelectedParent != null)
+	            {
+		            model.Category.ParentId = (int) model.SelectedParent;
+	            }
                 try
                 {
-                    _categoryLogic.Update(category);
+                    _categoryLogic.Update(model.Category);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.Id))
+                    if (!CategoryExists(model.Category.Id))
                     {
                         return NotFound();
                     }
@@ -166,7 +183,7 @@ namespace ShopNotch.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(model);
         }
 
         // GET: Categories/Delete/5
