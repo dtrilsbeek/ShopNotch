@@ -1,4 +1,4 @@
-﻿@model Data.Models.Product
+﻿@model ProductViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -59,25 +59,25 @@
 
         <form id="save-product" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Product.Id" />
             <div class="notch-card">
                 <h4 class="notch-card-title">General</h4>
 
                 <div class="notch-card-content">
                     <div class="form-group">
-                        <label asp-for="Name" class="control-label"></label>
-                        <input asp-for="Name" class="form-control" />
-                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <label asp-for="Product.Name" class="control-label"></label>
+                        <input asp-for="Product.Name" class="form-control" />
+                        <span asp-validation-for="Product.Name" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Description" class="control-label"></label>
-                        <input asp-for="Description" class="form-control" />
-                        <span asp-validation-for="Description" class="text-danger"></span>
+                        <label asp-for="Product.Description" class="control-label"></label>
+                        <input asp-for="Product.Description" class="form-control" />
+                        <span asp-validation-for="Product.Description" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Price" class="control-label"></label>
-                        <input asp-for="Price" class="form-control" />
-                        <span asp-validation-for="Price" class="text-danger"></span>
+                        <label asp-for="Product.Price" class="control-label"></label>
+                        <input asp-for="Product.Price" class="form-control" />
+                        <span asp-validation-for="Product.Price" class="text-danger"></span>
                     </div>
                 </div>
             </div>
@@ -87,14 +87,14 @@
 
                 <div class="notch-card-content">
                     <div class="form-group">
-                        <label asp-for="Sku" class="control-label"></label>
-                        <input asp-for="Sku" class="form-control" />
-                        <span asp-validation-for="Sku" class="text-danger"></span>
+                        <label asp-for="Product.Sku" class="control-label"></label>
+                        <input asp-for="Product.Sku" class="form-control" />
+                        <span asp-validation-for="Product.Sku" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="StockQty" class="control-label"></label>
-                        <input asp-for="StockQty" class="form-control" />
-                        <span asp-validation-for="StockQty" class="text-danger"></span>
+                        <label asp-for="Product.StockQty" class="control-label"></label>
+                        <input asp-for="Product.StockQty" class="form-control" />
+                        <span asp-validation-for="Product.StockQty" class="text-danger"></span>
                     </div>
                 </div>
             </div>
@@ -104,27 +104,27 @@
 
                 <div class="notch-card-content">
                     <div class="form-group">
-                        <label asp-for="Weight" class="control-label"></label>
-                        <input asp-for="Weight" class="form-control" />
-                        <span asp-validation-for="Weight" class="text-danger"></span>
+                        <label asp-for="Product.Weight" class="control-label"></label>
+                        <input asp-for="Product.Weight" class="form-control" />
+                        <span asp-validation-for="Product.Weight" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="notch-card-content">
                     <div class="form-group">
-                        <label asp-for="Length" class="control-label"></label>
-                        <input asp-for="Length" class="form-control" />
-                        <span asp-validation-for="Length" class="text-danger"></span>
+                        <label asp-for="Product.Length" class="control-label"></label>
+                        <input asp-for="Product.Length" class="form-control" />
+                        <span asp-validation-for="Product.Length" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Width" class="control-label"></label>
-                        <input asp-for="Width" class="form-control" />
-                        <span asp-validation-for="Width" class="text-danger"></span>
+                        <label asp-for="Product.Width" class="control-label"></label>
+                        <input asp-for="Product.Width" class="form-control" />
+                        <span asp-validation-for="Product.Width" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Height" class="control-label"></label>
-                        <input asp-for="Height" class="form-control" />
-                        <span asp-validation-for="Height" class="text-danger"></span>
+                        <label asp-for="Product.Height" class="control-label"></label>
+                        <input asp-for="Product.Height" class="form-control" />
+                        <span asp-validation-for="Product.Height" class="text-danger"></span>
                     </div>
                 </div>
             </div>
@@ -133,16 +133,9 @@
                 <h4 class="notch-card-title">Category</h4>
 
                 <div class="notch-card-content">
-                    category list
+                    @{ Html.RenderPartial("_CategorySelectList", @Model.CategoryModel); }
                 </div>
             </div>
-
-
-
-
-
-
-
 
         </form>
 
@@ -155,7 +148,7 @@
     <div id="right-menu" class="col-3">
         <ul>
             <li><a asp-controller="Products" asp-action="Create">Add new product</a></li>
-            <li><a asp-controller="Products" asp-action="Duplicate" asp-route-id="@Model.Id">Duplicate product</a></li>
+            <li><a asp-controller="Products" asp-action="Duplicate" asp-route-id="@Model.Product.Id">Duplicate product</a></li>
         </ul>
     </div>
 

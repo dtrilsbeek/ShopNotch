@@ -52,7 +52,6 @@ namespace ShopNotch.Controllers
 	            Category = category,
             };
 
-
 			return View(model);
         }
 
