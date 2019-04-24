@@ -7,11 +7,11 @@ namespace Logic
 {
 	public class CategoryTree
 	{
-		public Node MainNode { get; set; }
+		public List<Node> MainNode { get; set; }
 
 		public CategoryTree(List<Category> categories)
 		{
-			MainNode = new Node();
+			MainNode = new List<Node>();
 			CreateTree(categories);
 		}
 
@@ -19,7 +19,12 @@ namespace Logic
 		{
 			foreach (Category category in categories)
 			{
-				MainNode.AddCategory(category);
+				bool isAdded = false;
+				foreach (Node node in MainNode)
+				{
+					node.AddCategory(category);
+				}
+				
 			}
 		}
 	}

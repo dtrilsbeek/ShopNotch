@@ -24,16 +24,14 @@ namespace Logic
 				if (subNode != null)
 				{
 					subNode.AddCategory(category);
-				}
-				else
-				{
-					SubNodes.Add(new Node
-					{
-						Category = category,
-					});
+					return;
 				}
 			}
-			
+
+			SubNodes.Add(new Node
+			{
+				Category = category,
+			});
 		}
 
 		public void AddCategory(Category newCategory)
@@ -41,11 +39,15 @@ namespace Logic
 			bool isAdded = false;
 			foreach (Category category in Categories)
 			{
-				if (category.ParentId == newCategory.Id)
+				if (newCategory.Parent != null)
 				{
-					AddToSubNode(newCategory);
-					isAdded = true;
+					if (newCategory.Parent.Id == category.Id)
+					{
+						AddToSubNode(newCategory);
+						isAdded = true;
+					}
 				}
+				
 			}
 
 			if (!isAdded)
