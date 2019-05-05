@@ -13,28 +13,23 @@
 
     <ul class="category-tree">
 
-        @foreach (var item in Model.Tree.MainNode.Categories)
+        @foreach (var item in Model.Tree.MainNode.SubNodes)
         {
         <li>
-        <span class="caret">@item.Name</span>
+        <span class="caret">@item.Entity.Name</span>
             <ul class="nested">
             <li>
-                @foreach (var subNode in Model.Tree.MainNode.SubNodes)
+                @foreach (var subNode in item.SubNodes)
                 {
-                    foreach (var category in subNode.Categories)
-                    {
-                        <li>@category.Name</li>
-                    }
-                
-                    <span class="caret">@subNode.Category.Name</span>
+                   
+                    <span class="caret">@subNode.Entity.Name</span>
                     <ul class="nested">
 
                         @foreach (var subNodeSub in subNode.SubNodes)
                         {
-                            foreach (var category in subNodeSub.Categories)
-                            {
-                                <li>@category.Name</li>
-                            }
+                            
+                            <li>@subNodeSub.Entity.Name</li>
+                            
                         }
                     </ul>
                 }

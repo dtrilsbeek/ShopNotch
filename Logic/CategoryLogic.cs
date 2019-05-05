@@ -12,15 +12,11 @@ namespace Logic
 {
 	public class CategoryLogic : ILogic<Category>
 	{
-		private Repository<Category> _categoryRepository;
-		private CategorySqlContext _context;
+		private CategoryRepository _categoryRepository;
 
 		public CategoryLogic()
 		{
-			// TODO: How to extend repository with functionality that is not generic
-			// Bij gebrek aan beter.
-			_context = new CategorySqlContext();
-			_categoryRepository = new Repository<Category>( _context );
+			_categoryRepository = new CategoryRepository( new CategorySqlContext() );
 		}
 
 		public IEnumerable<Category> GetAll()
@@ -34,7 +30,7 @@ namespace Logic
 		}
 		public void Add(Category entity, int[] parentCategories)
 		{
-			Category category = _context.AddReturn(entity);
+			Category category = _categoryRepository.AddReturn(entity);
 
 			SetParentCategories(category, parentCategories);
 		}
@@ -58,18 +54,20 @@ namespace Logic
 		{
 			List<IParentEntity> categories = new List<IParentEntity>(_categoryRepository.GetAll().ToList());
 
-			return new TreeView(categories);
+			TreeView tree = new TreeView(categories);
+
+			return tree;
 		}
 
 		public IEnumerable<Category> GetParentCategories(Category category)
 		{
-			return _context.GetParentCategories(category);
+			return _categoryRepository.GetParentCategories(category);
 		}
 		public void SetParentCategories(Category category, int[] parentCategories)
 		{
 			foreach (int parentCategory in parentCategories)
 			{
-				_context.SetParentCategory(category, parentCategory);
+				_categoryRepository.SetParentCategory(category, parentCategory);
 			}
 		}
 	}

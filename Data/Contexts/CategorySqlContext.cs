@@ -153,13 +153,13 @@ namespace Data.Contexts
 			entity.Id = (int)record["Id"];
 			entity.Name = ConvertFromDbVal<string>(record["Name"]);
 
-			int? pId = ConvertFromDbVal<int?>(record["ParentId"]);
+			entity.ParentId = ConvertFromDbVal<int?>(record["ParentId"]);
 			string pName = ConvertFromDbVal<string>(record["ParentName"]);
-			if (pId != null)
+			if (entity.ParentId != null)
 			{
-				entity.Parent = new Category()
+				entity.Parent = new Category
 				{
-					Id = (int) pId,
+					Id = (int) entity.ParentId,
 					Name = pName
 				};
 			}
