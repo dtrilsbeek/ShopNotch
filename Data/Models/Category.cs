@@ -4,7 +4,7 @@ using Data.Interfaces;
 
 namespace Data.Models
 {
-    public partial class Category : IEntity
+    public partial class Category : IEntity, IParentEntity
     {
         public Category()
         {

@@ -4,6 +4,8 @@ using System.Linq;
 using Data.Models;
 using Data.Repositories;
 using Data.Contexts;
+using Data.Interfaces;
+using Logic.Helpers.TreeView;
 using Logic.Interfaces;
 
 namespace Logic
@@ -52,9 +54,11 @@ namespace Logic
 			return _categoryRepository.GetById(id);
 		}
 
-		public CategoryTree GetCategoryTree()
+		public TreeView GetCategoryTree()
 		{
-			return new CategoryTree(_categoryRepository.GetAll().ToList());
+			List<IParentEntity> categories = new List<IParentEntity>(_categoryRepository.GetAll().ToList());
+
+			return new TreeView(categories);
 		}
 
 		public IEnumerable<Category> GetParentCategories(Category category)
