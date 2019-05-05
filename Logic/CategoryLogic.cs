@@ -16,7 +16,7 @@ namespace Logic
 
 		public CategoryLogic()
 		{
-			_categoryRepository = new CategoryRepository( new CategorySqlContext() );
+			_categoryRepository = new CategoryRepository(new CategorySqlContext());
 		}
 
 		public IEnumerable<Category> GetAll()
@@ -28,6 +28,7 @@ namespace Logic
 		{
 			_categoryRepository.Add(entity);
 		}
+
 		public void Add(Category entity, int[] parentCategories)
 		{
 			Category category = _categoryRepository.AddReturn(entity);
@@ -54,15 +55,14 @@ namespace Logic
 		{
 			List<IParentEntity> categories = new List<IParentEntity>(_categoryRepository.GetAll().ToList());
 
-			TreeView tree = new TreeView(categories);
-
-			return tree;
+			return new TreeView(categories); ;
 		}
 
 		public IEnumerable<Category> GetParentCategories(Category category)
 		{
 			return _categoryRepository.GetParentCategories(category);
 		}
+
 		public void SetParentCategories(Category category, int[] parentCategories)
 		{
 			foreach (int parentCategory in parentCategories)

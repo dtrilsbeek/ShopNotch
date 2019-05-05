@@ -4,15 +4,14 @@
 @model Node
 
 
-<ul class="nested">
-    <span></span>@Model.Entity.Name
-    @foreach (Node subNode in Model.SubNodes)
-    {
-        <li>
-            @Html.Partial("_CategorySelectList", subNode)
-        </li>
-    }
-</ul>
+
+<span>@Model.Entity.Name</span>
+@foreach (Node subNode in Model.SubNodes)
+{
+    <li>
+        @Html.Partial("_CategorySelectList", subNode)
+    </li>
+}
 
 
 
