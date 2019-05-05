@@ -28,13 +28,15 @@ namespace Logic.Helpers.TreeView
 
 		private void SortTree()
 		{
-			foreach (Node node in Nodes)
+			for (int i = Nodes.Count-1; i >= 0; i--)
 			{
+				Node node = Nodes[i];
 				if (node.Entity.ParentId != null)
 				{
 					if (ParentDictionary.ContainsKey((int)node.Entity.ParentId))
 					{
 						ParentDictionary[(int)node.Entity.ParentId].AddToNode(node);
+						Nodes.RemoveAt(i);
 					}
 				}
 			}
