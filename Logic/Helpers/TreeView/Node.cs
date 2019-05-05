@@ -18,26 +18,5 @@ namespace Logic.Helpers.TreeView
 		{
 			SubNodes.Add(node);
 		}
-
-//		public void AddEntity(IParentEntity newEntity)
-//		{
-//			bool isAdded = false;
-//			foreach (Node subNode in SubNodes)
-//			{
-//				if (newEntity.ParentId != null)
-//				{
-//					if (newEntity.ParentId == subNode.Entity.Id)
-//					{
-//						subNode.AddEntity(newEntity);
-//						isAdded = true;
-//					}
-//				}
-//			}
-//
-//			if (!isAdded)
-//			{
-//				AddToNode(newEntity);
-//			}
-//		}
 	}
 }

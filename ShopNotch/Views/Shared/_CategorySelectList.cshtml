@@ -1,5 +1,54 @@
-﻿@model CategoryViewModel
+﻿@using Logic.Helpers.TreeView
+@using Microsoft.AspNetCore.Html
 
+@model Node
+
+
+<ul class="nested">
+    <span></span>@Model.Entity.Name
+    @foreach (Node subNode in Model.SubNodes)
+    {
+        <li>
+            @Html.Partial("_CategorySelectList", subNode)
+        </li>
+    }
+</ul>
+
+
+
+
+@* @{ *@
+@*     Func<List<Node>, IHtmlContent> ShowTree = @<text>@{ *@
+@* *@
+@*     <ul> *@
+@*         @foreach (Node node in item) *@
+@*         { *@
+@*             <li> *@
+@*                 @node.Entity.Name *@
+@*                 @if (node.SubNodes.Any()) *@
+@*                 { *@
+@*                     @ShowTree(node.SubNodes) *@
+@*                 } *@
+@*             </li> *@
+@*         } *@
+@*     </ul> *@
+@* }</text>; *@
+@* } *@
+
+@* @functions *@
+@* { *@
+@*     public void GenerateTreeView(List<Node> nodes) *@
+@*     { *@
+@*         foreach (Node node in nodes) *@
+@*         { *@
+@* *@
+@*             GenerateTreeView(node.SubNodes); *@
+@*         } *@
+@*     } *@
+@* } *@
+
+
+@*
 <ul class="category-tree">
     <li>
         <span class="caret">Beverages</span>
@@ -25,3 +74,4 @@
         </ul>
     </li>
 </ul>
+*@
