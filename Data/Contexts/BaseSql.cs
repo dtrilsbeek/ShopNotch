@@ -7,7 +7,7 @@ using Data.Interfaces;
 
 namespace Data.Contexts
 {
-	public abstract class BaseDb<TEntity>
+	public abstract class BaseSql<TEntity>
 	{
 		private string _connectionString = "Server=mssql.fhict.local;Database=dbi391176_elayed;User Id=dbi391176_elayed;Password=appelsenperen12;";
 

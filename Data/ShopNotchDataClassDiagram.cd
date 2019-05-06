@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Data.Repositories.CategoryRepository">
+    <Position X="0.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAABAECAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\CategoryRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Data.Repositories.Repository&lt;T&gt;">
+    <Position X="3" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAABAAAAAAAAAAAAAEAAAAAAgAAAAAAAIA=</HashCode>
+      <FileName>Repositories\Repository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Data.Contexts.BaseSql&lt;TEntity&gt;">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAEAAAAAAAQAIAAAAAAIAAAA=</HashCode>
+      <FileName>Contexts\BaseSql.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Data.Contexts.CategorySqlContext">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYCAAAAABAAAAECAAAAAAAAAAEAAQAAAgAAAAAAAIA=</HashCode>
+      <FileName>Contexts\CategorySqlContext.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Data.Contexts.OrderSqlContext">
+    <Position X="3" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAABAAAAAAAAAAAAAAAAEAAQAAAgAAAAAAAIA=</HashCode>
+      <FileName>Contexts\OrderSqlContext.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Data.Contexts.ProductSqlContext">
+    <Position X="5.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAABAAAAAAAAAAAAAAAAEAAQAAAgAAAAAAAIA=</HashCode>
+      <FileName>Contexts\ProductSqlContext.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Data.IRepository&lt;T&gt;">
+    <Position X="12.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAAAAIA=</HashCode>
+      <FileName>Interfaces\IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Data.Interfaces.IContext&lt;T&gt;">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAAAAIA=</HashCode>
+      <FileName>Interfaces\IContext.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Data.Interfaces.IEntity">
+    <Position X="9.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IEntity.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Data.Interfaces.IParentEntity">
+    <Position X="11" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IParentEntity.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

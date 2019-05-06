@@ -7,7 +7,7 @@ using Data.Models;
 
 namespace Data.Contexts
 {
-	public class OrderSqlContext : BaseDb<Order>, IContext<Order>
+	public class OrderSqlContext : BaseSql<Order>, IContext<Order>
 	{
 		protected override void Map(IDataRecord record, Order entity)
 		{
