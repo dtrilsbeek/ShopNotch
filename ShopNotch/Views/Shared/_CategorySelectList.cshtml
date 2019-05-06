@@ -4,48 +4,15 @@
 @model Node
 
 
-
 <span>@Model.Entity.Name</span>
-@foreach (Node subNode in Model.SubNodes)
-{
-    <li>
-        @Html.Partial("_CategorySelectList", subNode)
-    </li>
-}
-
-
-
-
-@* @{ *@
-@*     Func<List<Node>, IHtmlContent> ShowTree = @<text>@{ *@
-@* *@
-@*     <ul> *@
-@*         @foreach (Node node in item) *@
-@*         { *@
-@*             <li> *@
-@*                 @node.Entity.Name *@
-@*                 @if (node.SubNodes.Any()) *@
-@*                 { *@
-@*                     @ShowTree(node.SubNodes) *@
-@*                 } *@
-@*             </li> *@
-@*         } *@
-@*     </ul> *@
-@* }</text>; *@
-@* } *@
-
-@* @functions *@
-@* { *@
-@*     public void GenerateTreeView(List<Node> nodes) *@
-@*     { *@
-@*         foreach (Node node in nodes) *@
-@*         { *@
-@* *@
-@*             GenerateTreeView(node.SubNodes); *@
-@*         } *@
-@*     } *@
-@* } *@
-
+<ul class="nested">
+    @foreach (Node subNode in Model.SubNodes)
+    {
+        <li>
+            @Html.Partial("_CategorySelectList", subNode)
+        </li>
+    }
+</ul>
 
 @*
 <ul class="category-tree">
