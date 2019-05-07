@@ -8,13 +8,13 @@ namespace Logic.Helpers.TreeView
 	{
 		public List<Node> Nodes { get; set; }
 
-		private Dictionary<int, Node> ParentDictionary;
+		private Dictionary<int, Node> _parentDictionary;
 
 		public TreeView(List<IParentEntity> entities)
 		{
 			Nodes = new List<Node>();
 			CreateTree(entities);
-			ParentDictionary = Nodes.ToDictionary(x => x.Entity.Id, x => x);
+			_parentDictionary = Nodes.ToDictionary(x => x.Entity.Id, x => x);
 			SortTree();
 		}
 
@@ -33,9 +33,9 @@ namespace Logic.Helpers.TreeView
 				Node node = Nodes[i];
 				if (node.Entity.ParentId != null)
 				{
-					if (ParentDictionary.ContainsKey((int)node.Entity.ParentId))
+					if (_parentDictionary.ContainsKey((int)node.Entity.ParentId))
 					{
-						ParentDictionary[(int)node.Entity.ParentId].AddToNode(node);
+						_parentDictionary[(int)node.Entity.ParentId].AddToNode(node);
 						Nodes.RemoveAt(i);
 					}
 				}
