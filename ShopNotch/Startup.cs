@@ -71,8 +71,12 @@ namespace ShopNotch
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(
-					name: "default",
-					template: "{controller=Notch}/{action=Index}/{id?}");
+					name: "Notch",
+					template: "Notch/{controller=Home}/{action=Index}/{id?}");
+
+				routes.MapRoute(
+					name: "Shop",
+					template: "{controller=Shop}/{action=Index}/{id?}");
 			});
 		}
 	}

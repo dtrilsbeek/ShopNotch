@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ShopNotch.Controllers
 {
-    public class HomeController : Controller
+    public class ShopController : Controller
     {
         public IActionResult Index()
         {
