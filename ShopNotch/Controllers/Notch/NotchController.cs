@@ -2,11 +2,7 @@
 
 namespace ShopNotch.Controllers.Notch
 {
-    public class HomeController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
-    }
+	[Area("Notch")]
+	public abstract class NotchController : Controller
+	{}
 }

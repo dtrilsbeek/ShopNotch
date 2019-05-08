@@ -72,10 +72,11 @@ namespace ShopNotch
 			{
 				routes.MapRoute(
 					name: "Notch",
-					template: "Notch/{controller=Home}/{action=Index}/{id?}");
+					template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+					);
 
 				routes.MapRoute(
-					name: "Shop",
+					name: "default",
 					template: "{controller=Shop}/{action=Index}/{id?}");
 			});
 		}

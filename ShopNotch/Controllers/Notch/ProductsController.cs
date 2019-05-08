@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ShopNotch.Controllers.Notch
 {
-    public class ProductsController : Controller
+    public class ProductsController : NotchController
     {
         private readonly ProductLogic _productLogic;
 
