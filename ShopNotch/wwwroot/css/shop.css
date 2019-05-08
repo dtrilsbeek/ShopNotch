@@ -1,4 +1,26 @@
-﻿.product-card {
+﻿nav {
+    box-shadow: 0 0 0 0.2rem rgba(195, 195, 195, 0.25);
+    margin-bottom: 25px;
+    padding: 5px 25px 5px 25px;
+}
+nav h4 {
+    display: inline;
+    float: left;
+    margin-bottom: 0;
+}
+
+nav ul {
+    display: inline-block;
+    list-style-type: none;
+    margin-bottom: 0;
+}
+    nav ul li {
+        margin-left: 10px;
+        padding-top: 5px;
+        float: left;
+    }
+
+.product-card {
     width: 22%;
     height: 200px;
     padding: 15px;
@@ -31,3 +53,5 @@
         color: #495057;
         padding-top: 5px;
     }
+
+
