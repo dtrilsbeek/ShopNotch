@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/Notch/_NotchLayout.cshtml";
+    Layout = "~/Areas/Notch/Views/Shared/_NotchLayout.cshtml";
 }
 
 <div class="row">
@@ -147,8 +147,8 @@
     </div>
     <div id="right-menu" class="col-3">
         <ul>
-            <li><a asp-controller="Products" asp-action="Create">Add new product</a></li>
-            <li><a asp-controller="Products" asp-action="Duplicate" asp-route-id="@Model.Product.Id">Duplicate product</a></li>
+            <li><a asp-area="Notch" asp-controller="Products" asp-action="Create">Add new product</a></li>
+            <li><a asp-area="Notch" asp-controller="Products" asp-action="Duplicate" asp-route-id="@Model.Product.Id">Duplicate product</a></li>
         </ul>
     </div>
 

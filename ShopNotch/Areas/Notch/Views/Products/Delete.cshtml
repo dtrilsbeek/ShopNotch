@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Delete";
-    Layout = "~/Views/Shared/Notch/_NotchLayout.cshtml";
+    Layout = "~/Areas/Notch/Views/Shared/_NotchLayout.cshtml";
 }
 <div id="notch-collection-container">
     <h1>Delete</h1>
@@ -65,7 +65,7 @@
         <form asp-action="Delete">
             <input type="hidden" asp-for="Id" />
             <input type="submit" value="Delete" class="btn btn-danger" /> |
-            <a asp-action="Index">Back to List</a>
+            <a asp-area="Notch" asp-controller="Product" asp-action="Index">Back to List</a>
         </form>
     </div>
 </div>

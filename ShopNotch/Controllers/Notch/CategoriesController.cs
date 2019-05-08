@@ -10,7 +10,8 @@ using ShopNotch.Models;
 
 namespace ShopNotch.Controllers.Notch
 {
-    public class CategoriesController : NotchController
+	[Area("Notch")]
+	public class CategoriesController : Controller
     {
         private CategoryLogic _categoryLogic;
 

@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/Notch/_NotchLayout.cshtml";
+    Layout = "~/Areas/Notch/Views/Shared/_NotchLayout.cshtml";
 }
 
 <div id="notch-collection-container">
@@ -69,7 +69,7 @@
         </dl>
     </div>
     <div>
-        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-area="Notch" asp-controller="Product" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-area="Notch" asp-controller="Product" asp-action="Index">Back to List</a>
     </div>
 </div>
