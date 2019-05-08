@@ -42,5 +42,9 @@ namespace Logic
 			return _productRepository.GetById(id);
 		}
 
+		public IEnumerable<Product> GetByCategoryId(int id)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

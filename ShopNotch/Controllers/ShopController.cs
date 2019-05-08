@@ -51,5 +51,32 @@ namespace ShopNotch.Controllers
 
 			return View(product);
 		}
+
+        public IActionResult Categories(int? id)
+        {
+	        IEnumerable<Product> products;
+
+			if (id == null)
+			{
+				products = _productLogic.GetAll();
+			}
+			else
+			{
+				products = _productLogic.GetByCategoryId((int)id);
+			}
+
+			if (products == null)
+			{
+				return NotFound();
+			}
+
+			ShopViewModel model = new ShopViewModel
+			{
+				Categories = _categoryLogic.GetAll(),
+				Products = products
+			};
+
+			return View(model);
+		}
     }
 }
