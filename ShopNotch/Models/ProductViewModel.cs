@@ -11,10 +11,5 @@ namespace ShopNotch.Models
 	{
 		public Product Product { get; set; }
 		public CategoryViewModel CategoryModel { get; set; }
-
-		public ProductViewModel()
-		{
-			
-		}
 	}
 }

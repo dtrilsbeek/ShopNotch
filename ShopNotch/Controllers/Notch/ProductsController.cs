@@ -1,10 +1,9 @@
-﻿using System;
-using Data.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Data.Models;
 using Logic;
 using Logic.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
-namespace ShopNotch.Controllers
+namespace ShopNotch.Controllers.Notch
 {
     public class ProductsController : Controller
     {

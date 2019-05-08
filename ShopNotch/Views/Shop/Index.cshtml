@@ -1,11 +1,29 @@
-﻿
+﻿@model ShopViewModel
 @{
     ViewData["Title"] = "View";
     Layout = "~/Views/Shared/Shop/_ShopLayout.cshtml";
 }
 
-<h1>View</h1>
+<h1>Products</h1>
 
-<nav>Navbar</nav>
+<div class="products row">
 
-<div class="products">show some products here..</div>
+    @foreach (var product in Model.Products)
+    {
+        <a class="product-card" asp-controller="Shop" asp-action="Details" asp-route-id="@product.Id">
+            <div class="product-header">
+                <h4>@product.Name</h4>
+            </div>
+            <div class="product-content">
+                <div class="product-description">
+                    @product.Description
+                </div>
+                <div class="product-price">
+                    @product.Price
+                </div>
+            </div>
+        </a>
+    
+    }
+
+</div>
