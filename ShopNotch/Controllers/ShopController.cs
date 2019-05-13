@@ -27,7 +27,7 @@ namespace ShopNotch.Controllers
 	        var categories = _categoryLogic.GetAll();
 	        var products = _productLogic.GetAll();
 
-			ShopViewModel model = new ShopViewModel
+			var model = new ShopViewModel
 			{
 				Categories = categories,
 				Products = products
@@ -54,23 +54,14 @@ namespace ShopNotch.Controllers
 
         public IActionResult Categories(int? id)
         {
-	        IEnumerable<Product> products;
-
-			if (id == null)
-			{
-				products = _productLogic.GetAll();
-			}
-			else
-			{
-				products = _productLogic.GetByCategoryId((int)id);
-			}
+	        var products = id == null ? _productLogic.GetAll() : _productLogic.GetByCategoryId((int)id);
 
 			if (products == null)
 			{
 				return NotFound();
 			}
 
-			ShopViewModel model = new ShopViewModel
+			var model = new ShopViewModel
 			{
 				Categories = _categoryLogic.GetAll(),
 				Products = products
