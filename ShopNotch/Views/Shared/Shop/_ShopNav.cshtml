@@ -7,5 +7,8 @@
         <li><a asp-controller="Shop" asp-action="Categories" asp-route-id="2">Laptops</a></li>
         <li><a asp-controller="Shop" asp-action="Categories">All Products</a></li>
     </ul>
+    
+    @* if logged in:  *@
+    <a id="go-notch-button" class="btn btn-primary" asp-area="Notch" asp-controller="Products" asp-action="Index">Go to Notch</a>
 
 </nav>

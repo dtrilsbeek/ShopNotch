@@ -21,6 +21,9 @@ nav ul li {
     padding-top: 5px;
     float: left;
 }
+#go-notch-button {
+    float: right;
+}
 
 .product-card {
     width: 22%;
@@ -57,4 +60,18 @@ nav ul li {
 .product-card .product-content {
     color: #495057;
     padding-top: 5px;
+}
+
+
+#product-detail-container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.product-detail-main {
+    margin-bottom: 15px;
+}
+
+.product-spec-group {
+    margin-bottom: 15px;
 }

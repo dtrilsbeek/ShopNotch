@@ -69,5 +69,10 @@ namespace ShopNotch.Controllers
 
 			return View(model);
 		}
+
+        public IActionResult AddToCart()
+        {
+	        throw new NotImplementedException();
+        }
     }
 }

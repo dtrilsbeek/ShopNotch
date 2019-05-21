@@ -133,7 +133,11 @@
                 <h4 class="notch-card-title">Category</h4>
 
                 <div class="notch-card-content">
-                    @{ Html.RenderPartial("_CategorySelectList", @Model.CategoryModel); }
+
+                    @foreach (var Node in Model.Tree.Nodes)
+                    {
+                        Html.RenderPartial("_CategorySelectList", Node);
+                    }
                 </div>
             </div>
 

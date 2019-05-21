@@ -2,6 +2,7 @@
 using Logic;
 using Logic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using ShopNotch.Models;
 
 namespace ShopNotch.Controllers.Notch
 {
@@ -9,10 +10,12 @@ namespace ShopNotch.Controllers.Notch
 	public class ProductsController : Controller
     {
         private readonly ProductLogic _productLogic;
+        private readonly CategoryLogic _categoryLogic;
 
-        public ProductsController(ILogic<Product> logic)
+        public ProductsController(ILogic<Product> productLogic, ILogic<Category> categoryLogic)
         {
-	        _productLogic = logic as ProductLogic;
+	        _productLogic = productLogic as ProductLogic;
+	        _categoryLogic = categoryLogic as CategoryLogic;
         }
 
         // GET: Products
@@ -69,7 +72,13 @@ namespace ShopNotch.Controllers.Notch
 
             if (product == null) { return NotFound(); }
 
-            return View(product);
+			var model = new ProductViewModel
+			{
+				Product = product,
+				Tree = _categoryLogic.GetCategoryTree()
+			};
+
+            return View(model);
         }
 
         // POST: Products/Edit/5
