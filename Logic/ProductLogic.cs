@@ -10,11 +10,11 @@ namespace Logic
 {
 	public class ProductLogic : ILogic<Product>
 	{
-		private Repository<Product> _productRepository;
+		private ProductRepository _productRepository;
 
 		public ProductLogic()
 		{
-			_productRepository = new Repository<Product>( new ProductSqlContext() );
+			_productRepository = new ProductRepository( new ProductSqlContext());
 		}
 
 		public IEnumerable<Product> GetAll()
@@ -44,7 +44,7 @@ namespace Logic
 
 		public IEnumerable<Product> GetByCategoryId(int id)
 		{
-			throw new NotImplementedException();
+			return _productRepository.getByCategoryId(id);
 		}
 	}
 }

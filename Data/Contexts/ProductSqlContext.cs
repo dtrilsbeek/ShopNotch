@@ -89,13 +89,28 @@ namespace Data.Contexts
 		public Product GetById(int id)
 		{
 			SqlCommand command = new SqlCommand(
-				$"SELECT * FROM Product WHERE Id = @Id"
+				"SELECT * FROM Product WHERE Id = @Id"
 			);
 
 			command.Parameters.AddWithValue("@Id", id);
 
 
 			return ExecuteQuery(command).First();
+		}
+
+		public IEnumerable<Product> GetByCategoryId(int id)
+		{
+			SqlCommand command = new SqlCommand(
+				@"SELECT * FROM Product 
+						WHERE Id IN (SELECT ProductId 
+									FROM CategoryPerProduct
+									WHERE CategoryId = @Id)"
+			);
+
+			command.Parameters.AddWithValue("@Id", id);
+
+
+			return ExecuteQuery(command);
 		}
 
 		protected override void Map(IDataRecord record, Product entity)
