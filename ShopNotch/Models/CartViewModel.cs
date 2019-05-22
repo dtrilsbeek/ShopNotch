@@ -10,6 +10,7 @@ namespace ShopNotch.Models
 {
 	public class CartViewModel
 	{
-		public List<CartItem> Items { get; set; }
+		public Dictionary<int, int> Items { get; set; }
+		public List<Product> Products { get; set; }
 	}
 }

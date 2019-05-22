@@ -73,56 +73,80 @@ namespace ShopNotch.Controllers
 			return View(model);
 		}
 
-
-		[HttpPost]
-		/*[Produces("application/json")]*/
-		public IActionResult AddToCart(int? amount, int? productId)
+		public IActionResult Cart()
 		{
-			if (productId == null || amount == null)
-			{
-				return NotFound();
-			}
-
-			var product = _productLogic.GetById((int) productId);
-			if (product == null)
-			{
-				return NotFound();
-			}
-
-			var item = new CartItem
-			{
-				ProductId = (int) productId,
-				Amount = (int) amount
-			};
 			CartViewModel model;
-
 			var cart = HttpContext.Session.GetString("CartItems");
 
 			if (!string.IsNullOrEmpty(cart))
 			{
 				model = JsonConvert.DeserializeObject<CartViewModel>(cart);
-				model.Items.Add(item);
 			}
 			else
 			{
 				model = new CartViewModel
 				{
-					Items = new List<CartItem>
-					{
-						item
-					}
+					Items = new Dictionary<int, int>()
 				};
 			}
+
+			var products = new List<Product>();
+			foreach (var cartItem in model.Items)
+			{
+				var product = _productLogic.GetById(cartItem.Key);
+				if (product == null) return NotFound();
+
+				products.Add(product);
+			}
+
+			model.Products = products;
+
+			return View(model);
+		}
+
+
+		[HttpPost]
+		/*[Produces("application/json")]*/
+		public IActionResult AddToCart(int? productId, int? amount)
+		{
+			if (productId == null || amount == null) return NotFound();
+
+			var product = _productLogic.GetById((int) productId);
+
+			if (product == null) return NotFound();
+
+			CartViewModel model;
+			var cart = HttpContext.Session.GetString("CartItems");
+
+			if (!string.IsNullOrEmpty(cart))
+			{
+				model = JsonConvert.DeserializeObject<CartViewModel>(cart);
+			}
+			else
+			{
+				model = new CartViewModel
+				{
+					Items = new Dictionary<int, int>()
+				};
+			}
+
+			AddToDictionary(model.Items, (int) productId, (int) amount);
 
 			HttpContext.Session.SetString("CartItems", JsonConvert.SerializeObject(model));
 
 			return new OkResult();
 		}
 
-
-		public IActionResult AddToCart()
+		private void AddToDictionary(Dictionary<int, int> dictionary, int productId, int amount)
 		{
-			throw new NotImplementedException();
+			if (dictionary.ContainsKey(productId))
+			{
+				dictionary[productId] += amount;
+			}
+			else
+			{
+				dictionary[productId] = amount;
+			}
 		}
 	}
 }

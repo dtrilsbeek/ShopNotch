@@ -12,7 +12,13 @@
 
     <div class="cart-detail-main row">
         
-
+        @foreach (var product in Model.Products)
+        {
+            <div class="product">
+                <div class="product-title">@product.Name</div>
+                <div class="product-amount"></div>
+            </div>
+        }
 
     </div>
 
