@@ -39,6 +39,17 @@ namespace ShopNotch
 
 			});
 
+			services.AddDistributedMemoryCache();
+
+			services.AddSession(options =>
+			{
+				// Set a short timeout for easy testing.
+				options.IdleTimeout = TimeSpan.FromSeconds(10);
+				options.Cookie.HttpOnly = true;
+				// Make the session cookie essential
+				options.Cookie.IsEssential = true;
+			});
+
 			//			services.AddScoped<ILogic, ProductLogic>();
 			services.AddSingleton<ILogic<Product>>( new ProductLogic());
 			services.AddSingleton<ILogic<Category>>( new CategoryLogic());
@@ -67,6 +78,7 @@ namespace ShopNotch
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 			app.UseCookiePolicy();
+			app.UseSession();
 
 			app.UseMvc(routes =>
 			{

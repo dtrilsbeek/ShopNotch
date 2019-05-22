@@ -8,9 +8,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ShopNotch.Models
 {
-	public class ProductViewModel
+	public class CartViewModel
 	{
-		public Product Product { get; set; }
-		public TreeView Tree { get; set; }
+		public List<CartItem> Items { get; set; }
 	}
 }

@@ -19,7 +19,7 @@ namespace Data.Repositories
 
 		public IEnumerable<Product> getByCategoryId(int id)
 		{
-			_context.GetByCategoryId(id);
+			return _context.GetByCategoryId(id);
 		}
 	}
 }
