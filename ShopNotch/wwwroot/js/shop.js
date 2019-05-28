@@ -4,9 +4,6 @@
 
     var amount = $("#product-amount").val();
 
-    console.log(productId);
-    console.log(amount);
-
     $.ajax({
         type: "POST",
         url: "/Shop/AddToCart",
@@ -15,7 +12,9 @@
             amount: amount
         },
         success: function (data) {
-            console.log(data);
+            $("#main-notification").addClass("alert alert-success").html(amount + " item(s) added").delay(3000).queue(function() {
+                $(this).html("").removeClass().dequeue();
+            });
         }
     });
 

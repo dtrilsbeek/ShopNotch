@@ -19,13 +19,15 @@
     <link rel="stylesheet" href="~/css/shop.css" />
 </head>
 <body>
-    <header>
-        <partial name="Shop/_ShopNav"/>
-    </header>
+<header>
+    <partial name="Shop/_ShopNav"/>
+</header>
 
-    <div class="container-fluid">
+<div class="container-fluid">
+    
+    <div id="main-notification"></div>
 
-        @* <partial name="_CookieConsentPartial" /> *@
+    @* <partial name="_CookieConsentPartial" /> *@
 
         <main role="main" class="pb-3">
             @RenderBody()
