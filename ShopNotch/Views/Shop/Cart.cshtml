@@ -4,21 +4,40 @@
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/Shop/_ShopLayout.cshtml";
 }
-
+@{ decimal total = 0; }
 <div id="shop-detail-container">
 
     <h1>Shopping Cart</h1>
-    <hr />
+    <hr/>
 
-    <div class="cart-detail-main row">
-        
+    <div class="cart-detail-main">
+
         @foreach (var product in Model.Products)
         {
-            <div class="product">
-                <div class="product-title">@product.Name</div>
-                <div class="product-amount"></div>
+            total += (product.Key.Price * product.Value);
+            <div class="product row">
+                <div class="product-info-group col-sm">
+                    <div class="product-title">@product.Key.Name</div>
+                </div>
+                <div class="product-info-group col-sm">
+                    <div class="product-price">Price: @product.Key.Price</div>
+                </div>
+                <div class="product-info-group col-sm">
+                    <div class="product-amount">Amount: @product.Value</div>
+                </div>
+                <div class="product-info-group col-sm">
+                    <div class="product-subtotal">Subtotal: @(product.Key.Price * product.Value)</div>
+                </div>
             </div>
         }
+        
+        <div class="cart-summary">
+            <div class="cart-total">
+                Cart total: @total
+            </div>
+            <button class="btn btn-primary">Go to Checkout</button>
+        </div>
+        
 
     </div>
 

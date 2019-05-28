@@ -90,13 +90,13 @@ namespace ShopNotch.Controllers
 				};
 			}
 
-			var products = new List<Product>();
+			var products = new Dictionary<Product, int>();
 			foreach (var cartItem in model.Items)
 			{
 				var product = _productLogic.GetById(cartItem.Key);
 				if (product == null) return NotFound();
 
-				products.Add(product);
+				products[product] = cartItem.Value;
 			}
 
 			model.Products = products;

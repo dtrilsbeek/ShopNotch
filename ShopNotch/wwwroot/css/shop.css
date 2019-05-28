@@ -75,3 +75,30 @@ nav ul li {
 .product-spec-group {
     margin-bottom: 15px;
 }
+
+/* Cart Page */
+.cart-detail-main .product {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 30px;
+    padding: 15px;
+    /* border: 1px solid #80bdff; */
+    border-radius: 5px;
+    /* box-shadow: 0 0 0 0.2rem #007bff; */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+.product .product-info-group {
+    display: inline-block;
+    background-color: #fff;
+    border-left: 1px solid #979797;
+    outline: 0;
+}
+.product-info-group > div {
+    display: inline;
+}
+.cart-summary {
+    text-align: right;
+}
+.cart-total {
+    display: inline;
+}
