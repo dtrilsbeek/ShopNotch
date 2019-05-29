@@ -54,6 +54,9 @@ namespace ShopNotch
 			services.AddSingleton<ILogic<Product>>( new ProductLogic());
 			services.AddSingleton<ILogic<Category>>( new CategoryLogic());
 
+			//			services.Configure<DbConfig>(Configuration.GetSection("DbConfig"));
+			services.AddSingleton(Configuration.GetSection("DbConfig").Get<DbConfig>());
+
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
 //			var connection = @"Data Source=(localdb)\mssqllocaldb;AttachDbFilename=C:\Users\dtril\Documents\ShopNotch\TestDB.mdf;Initial Catalog=TestDb;Integrated Security=True";

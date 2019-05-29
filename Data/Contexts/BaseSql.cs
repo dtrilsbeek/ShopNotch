@@ -9,8 +9,13 @@ namespace Data.Contexts
 {
 	public abstract class BaseSql<TEntity>
 	{
-		private string _connectionString = "Server=mssql.fhict.local;Database=dbi391176_elayed;User Id=dbi391176_elayed;Password=appelsenperen12;";
+		private string _connectionString;
+		protected BaseSql(string connectionString)
+		{
+			_connectionString = connectionString;
+		}
 
+		
 		protected IEnumerable<TEntity> ExecuteQuery(SqlCommand command)
 		{
 			using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -60,10 +65,10 @@ namespace Data.Contexts
 			}
 		}
 
-		protected void ExecuteNonStoredProcedure()
+		protected void ExecuteNonQueryStoredProcedure(string procedureName)
 		{
-			using (var conn = new SqlConnection(connectionString))
-			using (var command = new SqlCommand("ProcedureName", conn)
+			using (var conn = new SqlConnection(_connectionString))
+			using (var command = new SqlCommand(procedureName, conn)
 			{
 				CommandType = CommandType.StoredProcedure
 			})
@@ -73,29 +78,31 @@ namespace Data.Contexts
 			}
 		}
 
-		protected IEnumerable<IEntity> ExecuteStoredProcedure()
+		protected IEnumerable<TEntity> ExecuteStoredProcedure(string procedureName, List<SqlParameter> sqlParameters)
 		{
-			using (SqlConnection conn = new SqlConnection("Server=(local);DataBase=Northwind;Integrated Security=SSPI"))
+			using (SqlConnection conn = new SqlConnection(_connectionString))
 			{
 				conn.Open();
 
-				// 1.  create a command object identifying the stored procedure
-				SqlCommand cmd = new SqlCommand("CustOrderHist", conn);
+				SqlCommand cmd = new SqlCommand(procedureName, conn);
 
-				// 2. set the command object so it knows to execute a stored procedure
 				cmd.CommandType = CommandType.StoredProcedure;
 
-				// 3. add parameter to command, which will be passed to the stored procedure
-				cmd.Parameters.Add(new SqlParameter("@CustomerID", custId));
-
-				// execute the command
-				using (SqlDataReader rdr = cmd.ExecuteReader())
+				foreach (var sqlParameter in sqlParameters)
 				{
-					// iterate through results, printing each to console
-					while (rdr.Read())
+					cmd.Parameters.Add(sqlParameter);
+				}
+
+				using (SqlDataReader reader = cmd.ExecuteReader())
+				{
+					List<TEntity> items = new List<TEntity>();
+					while (reader.Read())
 					{
-						Console.WriteLine("Product: {0,-35} Total: {1,2}", rdr["ProductName"], rdr["Total"]);
+						var item = CreateEntity();
+						Map(reader, item);
+						items.Add(item);
 					}
+					return items;
 				}
 			}
 		}
