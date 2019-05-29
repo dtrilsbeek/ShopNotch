@@ -3,6 +3,7 @@ using Logic;
 using Logic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using ShopNotch.Models;
+using ShopNotch.Models.Classes;
 
 namespace ShopNotch.Controllers.Notch
 {
@@ -11,11 +12,13 @@ namespace ShopNotch.Controllers.Notch
     {
         private readonly ProductLogic _productLogic;
         private readonly CategoryLogic _categoryLogic;
+        private Mapper _mapper;
 
         public ProductsController(ILogic<Product> productLogic, ILogic<Category> categoryLogic)
         {
 	        _productLogic = productLogic as ProductLogic;
 	        _categoryLogic = categoryLogic as CategoryLogic;
+			_mapper = new Mapper();
         }
 
         // GET: Products
@@ -38,7 +41,7 @@ namespace ShopNotch.Controllers.Notch
 				return NotFound();
 			}
 
-			return View(product);
+			return View(_mapper.GetProductModel(product));
         }
 
         // GET: Products/Create
@@ -60,7 +63,7 @@ namespace ShopNotch.Controllers.Notch
                 
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(_mapper.GetProductModel(product));
         }
 
         // GET: Products/Edit/5
@@ -74,7 +77,7 @@ namespace ShopNotch.Controllers.Notch
 
 			var model = new ProductViewModel
 			{
-				Product = product,
+				Product = _mapper.GetProductModel(product),
 				Tree = _categoryLogic.GetCategoryTree()
 			};
 
@@ -99,7 +102,7 @@ namespace ShopNotch.Controllers.Notch
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(_mapper.GetProductModel(product));
         }
 
         // GET: Products/Delete/5
@@ -116,7 +119,7 @@ namespace ShopNotch.Controllers.Notch
                 return NotFound();
             }
 
-            return View(product);
+            return View(_mapper.GetProductModel(product));
         }
 
         // POST: Products/Delete/5
@@ -131,11 +134,6 @@ namespace ShopNotch.Controllers.Notch
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(int id)
-        {
-			return false; //(_productLogic.GetById(id))
-        }
-        
         public IActionResult Duplicate(int? id)
         {
 	        if (id == null) { return NotFound(); }

@@ -37,5 +37,44 @@ namespace ShopNotch.Models.Classes
 
 			return category;
 		}
+
+		public ProductModel GetProductModel(Product product)
+		{
+			var model = new ProductModel
+			{
+				Id = product.Id,
+				Name = product.Name,
+				Description = product.Description,
+				Price = product.Price,
+				Sku = product.Sku,
+				Length = product.Length,
+				Width = product.Width,
+				Height = product.Height,
+				StockQty = product.StockQty,
+				Weight = product.Weight
+			};
+
+			return model;
+		}
+
+		public Product GetProductFromModel(ProductModel model)
+		{
+			var product = new Product
+			{
+				Id = model.Id,
+				Name = model.Name,
+				Description = model.Description,
+				Price = model.Price,
+				Sku = model.Sku,
+				Length = model.Length,
+				Width = model.Width,
+				Height = model.Height,
+				StockQty = model.StockQty,
+				Weight = model.Weight
+			};
+
+			return product;
+		}
+
 	}
 }

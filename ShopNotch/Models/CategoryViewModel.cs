@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Data.Models;
-using Logic;
 using Logic.Helpers.TreeView;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopNotch.Models.Classes;
