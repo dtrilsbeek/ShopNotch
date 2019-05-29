@@ -14,10 +14,12 @@ namespace ShopNotch.Controllers.Notch
 	public class CategoriesController : Controller
     {
         private CategoryLogic _categoryLogic;
+        private Mapper _mapper;
 
         public CategoriesController(ILogic<Category> logic)
         {
 	        _categoryLogic = logic as CategoryLogic;
+			_mapper = new Mapper();
         }
 
         // GET: Categories
@@ -45,10 +47,11 @@ namespace ShopNotch.Controllers.Notch
             {
                 return NotFound();
             }
+			
 
             CategoryViewModel model = new CategoryViewModel
             {
-	            Category = category,
+	            Category = _mapper.GetCategoryModel(category)
             };
 
 			return View(model);
@@ -108,7 +111,7 @@ namespace ShopNotch.Controllers.Notch
 
             CategoryViewModel model = new CategoryViewModel
             {
-	            Category = category,
+	            Category = _mapper.GetCategoryModel(category)
             };
 
             model.CategoryNames = category.Parent != null ? GetAllNames(_categoryLogic.GetAll(), category.Parent) : GetAllNames(_categoryLogic.GetAll());
@@ -136,7 +139,7 @@ namespace ShopNotch.Controllers.Notch
 	            }
                 try
                 {
-                    _categoryLogic.Update(model.Category);
+                    _categoryLogic.Update(_mapper.GetCategoryFromModel(model.Category));
                 }
                 catch (DbUpdateConcurrencyException)
                 {

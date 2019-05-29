@@ -11,7 +11,7 @@ namespace ShopNotch.Models
 {
 	public class CategoryViewModel
 	{
-		public Category Category { get; set; }
+		public CategoryModel Category { get; set; }
 		public IEnumerable<Category> Categories { get; set; }
 		public List<SelectListItem> CategoryNames { get; set; }
 		public TreeView Tree { get; set; }
