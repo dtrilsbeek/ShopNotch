@@ -4,6 +4,7 @@ using System.Linq;
 using Data.Models;
 using Data.Repositories;
 using Data.Contexts;
+using Data.Interfaces;
 using Logic.Interfaces;
 
 namespace Logic
