@@ -12,9 +12,9 @@ namespace Logic
 	{
 		private ProductRepository _productRepository;
 
-		public ProductLogic()
+		public ProductLogic(IDbConfig dbConfig)
 		{
-			_productRepository = new ProductRepository( new ProductSqlContext());
+			_productRepository = new ProductRepository( new ProductSqlContext(dbConfig));
 		}
 
 		public IEnumerable<Product> GetAll()

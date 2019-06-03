@@ -12,9 +12,9 @@ namespace Logic
 	{
 		private Repository<Page> _pageRepository;
 
-		public PageLogic()
+		public PageLogic(IDbConfig dbConfig)
 		{
-			_pageRepository = new Repository<Page>( new PageSqlContext() );
+			_pageRepository = new Repository<Page>( new PageSqlContext( dbConfig ));
 		}
 
 		public IEnumerable<Page> GetAll()

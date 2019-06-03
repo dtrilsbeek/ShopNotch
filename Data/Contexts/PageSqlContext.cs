@@ -9,6 +9,10 @@ namespace Data.Contexts
 {
 	public class PageSqlContext : BaseSql<Page>, IContext<Page>
 	{
+		public PageSqlContext(IDbConfig dbConfig) : base(dbConfig)
+		{
+		}
+
 		public IEnumerable<Page> GetAll()
 		{
 			SqlCommand command = new SqlCommand(

@@ -9,6 +9,11 @@ namespace Data.Contexts
 {
 	public class ProductSqlContext : BaseSql<Product>, IContext<Product>
 	{
+		public ProductSqlContext(IDbConfig dbConfig) : base(dbConfig)
+		{
+
+		}
+
 		public IEnumerable<Product> GetAll()
 		{
 			SqlCommand command = new SqlCommand(

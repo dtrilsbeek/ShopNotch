@@ -9,6 +9,10 @@ namespace Data.Contexts
 {
 	public class OrderSqlContext : BaseSql<Order>, IContext<Order>
 	{
+		public OrderSqlContext(DbConfig dbConfig) : base(dbConfig)
+		{
+		}
+
 		protected override void Map(IDataRecord record, Order entity)
 		{
 			entity.Id = (int)record["Name"];

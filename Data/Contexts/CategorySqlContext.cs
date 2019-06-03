@@ -10,7 +10,7 @@ namespace Data.Contexts
 {
 	public class CategorySqlContext : BaseSql<Category>, IContext<Category>
 	{
-		public CategorySqlContext(DbConfig config) : base(config)
+		public CategorySqlContext(IDbConfig dbConfig) : base(dbConfig)
 		{
 			
 		}

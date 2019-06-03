@@ -9,16 +9,15 @@ namespace Data.Contexts
 {
 	public abstract class BaseSql<TEntity>
 	{
-		private DbConfig _dbConfig;
-		protected BaseSql(DbConfig dbConfig)
+		private IDbConfig _dbConfig;
+		protected BaseSql(IDbConfig dbConfig)
 		{
 			_dbConfig = dbConfig;
 		}
 
-		
 		protected IEnumerable<TEntity> ExecuteQuery(SqlCommand command)
 		{
-			using (SqlConnection connection = new SqlConnection(_dbConfig))
+			using (SqlConnection connection = new SqlConnection(_dbConfig.GetConnectionString()))
 			{
 				command.Connection = connection;
 				connection.Open();
@@ -44,7 +43,7 @@ namespace Data.Contexts
 
 		protected bool ExecuteNonQuery(SqlCommand command)
 		{
-			using (SqlConnection connection = new SqlConnection(_dbConfig))
+			using (SqlConnection connection = new SqlConnection(_dbConfig.GetConnectionString()))
 			{
 				command.Connection = connection;
 				connection.Open();
@@ -67,7 +66,7 @@ namespace Data.Contexts
 
 		protected void ExecuteNonQueryStoredProcedure(string procedureName)
 		{
-			using (var conn = new SqlConnection(_dbConfig))
+			using (var conn = new SqlConnection(_dbConfig.GetConnectionString()))
 			using (var command = new SqlCommand(procedureName, conn)
 			{
 				CommandType = CommandType.StoredProcedure
@@ -80,7 +79,7 @@ namespace Data.Contexts
 
 		protected IEnumerable<TEntity> ExecuteStoredProcedure(string procedureName, List<SqlParameter> sqlParameters)
 		{
-			using (SqlConnection conn = new SqlConnection(_dbConfig))
+			using (SqlConnection conn = new SqlConnection(_dbConfig.GetConnectionString()))
 			{
 				conn.Open();
 

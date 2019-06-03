@@ -52,15 +52,20 @@ namespace ShopNotch
 			});
 
 			//			services.AddScoped<ILogic, ProductLogic>();
-			services.AddSingleton<ILogic<Product>>( new ProductLogic());
-			services.AddSingleton<ILogic<Category>>( new CategoryLogic());
+			// services.AddSingleton<IDbConfig>(Configuration.GetSection("DbConfig").Get<DbConfig>());
+
+			IDbConfig dbConfig = new DbConfig(Configuration.GetSection("DbConfig")["ShopNotchContext"]);
+
+			services.AddSingleton<ILogic<Product>>( new ProductLogic( dbConfig ));
+			services.AddSingleton<ILogic<Category>>( new CategoryLogic( dbConfig ));
+			
 
 			//			services.Configure<DbConfig>(Configuration.GetSection("DbConfig"));
-			services.AddSingleton(Configuration.GetSection("DbConfig").Get<DbConfig>());
+			//			services.AddSingleton();
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-//			var connection = @"Data Source=(localdb)\mssqllocaldb;AttachDbFilename=C:\Users\dtril\Documents\ShopNotch\TestDB.mdf;Initial Catalog=TestDb;Integrated Security=True";
+			//var connection = @"Data Source=(localdb)\mssqllocaldb;AttachDbFilename=C:\Users\dtril\Documents\ShopNotch\TestDB.mdf;Initial Catalog=TestDb;Integrated Security=True";
 			//var connection = @"Data Source=mssql.fhict.local;Initial Catalog=dbi391176_elayed;Integrated Security=False;Persist Security Info=False;User ID=dbi391176_elayed;Password=testappels123;";
 			//services.AddDbContext<ShopNotchDbContext>(options => options.UseSqlServer(connection));
 		}
