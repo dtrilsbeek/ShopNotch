@@ -1,4 +1,4 @@
-﻿namespace ShopNotch
+﻿namespace Data.Contexts
 {
 	public class DbConfig
 	{
