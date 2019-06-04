@@ -28,11 +28,18 @@ namespace ShopNotch.Controllers.Notch
         {
 			CategoryViewModel model = new CategoryViewModel
 			{
-				Categories = _categoryLogic.GetAll(),
+				Categories = new List<CategoryModel>(),
 				Tree = _categoryLogic.GetCategoryTree()
 			};
 
-            return View( model );
+			var categories = _categoryLogic.GetAll();
+
+			foreach (var category in categories)
+			{
+				model.Categories.Add(_mapper.GetCategoryModel(category));
+			}
+
+			return View( model );
         }
 
         // GET: Categories/Details/5
@@ -61,14 +68,18 @@ namespace ShopNotch.Controllers.Notch
         // GET: Categories/Create
         public IActionResult Create()
         {
-	        IEnumerable<Category> categories = _categoryLogic.GetAll();
+	        var categories = _categoryLogic.GetAll();
 
-	        var enumerable = categories.ToList();
 	        CategoryViewModel model = new CategoryViewModel()
 	        {
-		        Categories = enumerable,
-		        CategoryNames = GetAllNames(enumerable)
+		        Categories = new List<CategoryModel>(),
+		        CategoryNames = GetAllNames(categories)
 	        };
+
+	        foreach (var category in categories)
+	        { 
+				model.Categories.Add(_mapper.GetCategoryModel(category));
+	        }
 
 			return View(model);
         }
