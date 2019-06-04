@@ -91,7 +91,7 @@ namespace ShopNotch.Controllers.Notch
         [ValidateAntiForgeryToken]
         public IActionResult Create(CategoryViewModel model)
         {
-	        Category category = new Category
+	        var category = new Category
 	        {
 		        Id = 0,
 		        Name = model.Name,
