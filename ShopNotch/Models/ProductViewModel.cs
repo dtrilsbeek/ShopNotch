@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Data.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using System.Collections.Generic;
+using Logic.Helpers.TreeView;
+using ShopNotch.Models.Classes;
 
 namespace ShopNotch.Models
 {
 	public class ProductViewModel
 	{
-		public Product Product { get; set; }
-		public CategoryViewModel CategoryModel { get; set; }
+		public ProductModel Product { get; set; }
+		public TreeView Tree { get; set; }
+
+		public List<ProductModel> Products { get; set; }
 	}
 }

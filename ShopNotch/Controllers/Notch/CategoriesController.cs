@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ShopNotch.Models;
+using ShopNotch.Models.Classes;
 
 namespace ShopNotch.Controllers.Notch
 {
@@ -14,10 +15,12 @@ namespace ShopNotch.Controllers.Notch
 	public class CategoriesController : Controller
     {
         private CategoryLogic _categoryLogic;
+        private Mapper _mapper;
 
         public CategoriesController(ILogic<Category> logic)
         {
 	        _categoryLogic = logic as CategoryLogic;
+			_mapper = new Mapper();
         }
 
         // GET: Categories
@@ -25,11 +28,18 @@ namespace ShopNotch.Controllers.Notch
         {
 			CategoryViewModel model = new CategoryViewModel
 			{
-				Categories = _categoryLogic.GetAll(),
+				Categories = new List<CategoryModel>(),
 				Tree = _categoryLogic.GetCategoryTree()
 			};
 
-            return View( model );
+			var categories = _categoryLogic.GetAll();
+
+			foreach (var category in categories)
+			{
+				model.Categories.Add(_mapper.GetCategoryModel(category));
+			}
+
+			return View( model );
         }
 
         // GET: Categories/Details/5
@@ -45,10 +55,11 @@ namespace ShopNotch.Controllers.Notch
             {
                 return NotFound();
             }
+			
 
             CategoryViewModel model = new CategoryViewModel
             {
-	            Category = category,
+	            Category = _mapper.GetCategoryModel(category)
             };
 
 			return View(model);
@@ -57,14 +68,18 @@ namespace ShopNotch.Controllers.Notch
         // GET: Categories/Create
         public IActionResult Create()
         {
-	        IEnumerable<Category> categories = _categoryLogic.GetAll();
+	        var categories = _categoryLogic.GetAll();
 
-	        var enumerable = categories.ToList();
 	        CategoryViewModel model = new CategoryViewModel()
 	        {
-		        Categories = enumerable,
-		        CategoryNames = GetAllNames(enumerable)
+		        Categories = new List<CategoryModel>(),
+		        CategoryNames = GetAllNames(categories)
 	        };
+
+	        foreach (var category in categories)
+	        { 
+				model.Categories.Add(_mapper.GetCategoryModel(category));
+	        }
 
 			return View(model);
         }
@@ -108,7 +123,7 @@ namespace ShopNotch.Controllers.Notch
 
             CategoryViewModel model = new CategoryViewModel
             {
-	            Category = category,
+	            Category = _mapper.GetCategoryModel(category)
             };
 
             model.CategoryNames = category.Parent != null ? GetAllNames(_categoryLogic.GetAll(), category.Parent) : GetAllNames(_categoryLogic.GetAll());
@@ -136,7 +151,7 @@ namespace ShopNotch.Controllers.Notch
 	            }
                 try
                 {
-                    _categoryLogic.Update(model.Category);
+                    _categoryLogic.Update(_mapper.GetCategoryFromModel(model.Category));
                 }
                 catch (DbUpdateConcurrencyException)
                 {

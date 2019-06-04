@@ -19,13 +19,15 @@
     <link rel="stylesheet" href="~/css/shop.css" />
 </head>
 <body>
-    <header>
-        <partial name="Shop/_ShopNav"/>
-    </header>
+<header>
+    <partial name="Shop/_ShopNav"/>
+</header>
 
-    <div class="container-fluid">
+<div class="container-fluid">
+    
+    <div id="main-notification"></div>
 
-        <partial name="_CookieConsentPartial" />
+    @* <partial name="_CookieConsentPartial" /> *@
 
         <main role="main" class="pb-3">
             @RenderBody()
@@ -51,7 +53,7 @@
                 integrity="sha256-E/V4cWE4qvAeO5MOhjtGtqDzPndRO1LBk8lJ/PR7CA4=">
         </script>
     </environment>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/shop.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

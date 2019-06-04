@@ -4,17 +4,18 @@ using System.Linq;
 using Data.Models;
 using Data.Repositories;
 using Data.Contexts;
+using Data.Interfaces;
 using Logic.Interfaces;
 
 namespace Logic
 {
 	public class ProductLogic : ILogic<Product>
 	{
-		private Repository<Product> _productRepository;
+		private ProductRepository _productRepository;
 
-		public ProductLogic()
+		public ProductLogic(IDbConfig dbConfig)
 		{
-			_productRepository = new Repository<Product>( new ProductSqlContext() );
+			_productRepository = new ProductRepository( new ProductSqlContext(dbConfig));
 		}
 
 		public IEnumerable<Product> GetAll()
@@ -42,5 +43,9 @@ namespace Logic
 			return _productRepository.GetById(id);
 		}
 
+		public IEnumerable<Product> GetByCategoryId(int id)
+		{
+			return _productRepository.getByCategoryId(id);
+		}
 	}
 }

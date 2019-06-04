@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data;
+using Data.Contexts;
 using Data.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,13 +40,32 @@ namespace ShopNotch
 
 			});
 
+			services.AddDistributedMemoryCache();
+
+			services.AddSession(options =>
+			{
+				// Set a short timeout for easy testing.
+				// options.IdleTimeout = TimeSpan.FromSeconds(100);
+				options.Cookie.HttpOnly = true;
+				// Make the session cookie essential
+				options.Cookie.IsEssential = true;
+			});
+
 			//			services.AddScoped<ILogic, ProductLogic>();
-			services.AddSingleton<ILogic<Product>>( new ProductLogic());
-			services.AddSingleton<ILogic<Category>>( new CategoryLogic());
+			// services.AddSingleton<IDbConfig>(Configuration.GetSection("DbConfig").Get<DbConfig>());
+
+			IDbConfig dbConfig = new DbConfig(Configuration.GetSection("DbConfig")["ShopNotchContext"]);
+
+			services.AddSingleton<ILogic<Product>>( new ProductLogic( dbConfig ));
+			services.AddSingleton<ILogic<Category>>( new CategoryLogic( dbConfig ));
+			
+
+			//			services.Configure<DbConfig>(Configuration.GetSection("DbConfig"));
+			//			services.AddSingleton();
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-//			var connection = @"Data Source=(localdb)\mssqllocaldb;AttachDbFilename=C:\Users\dtril\Documents\ShopNotch\TestDB.mdf;Initial Catalog=TestDb;Integrated Security=True";
+			//var connection = @"Data Source=(localdb)\mssqllocaldb;AttachDbFilename=C:\Users\dtril\Documents\ShopNotch\TestDB.mdf;Initial Catalog=TestDb;Integrated Security=True";
 			//var connection = @"Data Source=mssql.fhict.local;Initial Catalog=dbi391176_elayed;Integrated Security=False;Persist Security Info=False;User ID=dbi391176_elayed;Password=testappels123;";
 			//services.AddDbContext<ShopNotchDbContext>(options => options.UseSqlServer(connection));
 		}
@@ -67,6 +87,7 @@ namespace ShopNotch
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 			app.UseCookiePolicy();
+			app.UseSession();
 
 			app.UseMvc(routes =>
 			{

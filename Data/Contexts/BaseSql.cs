@@ -9,11 +9,15 @@ namespace Data.Contexts
 {
 	public abstract class BaseSql<TEntity>
 	{
-		private string _connectionString = "Server=mssql.fhict.local;Database=dbi391176_elayed;User Id=dbi391176_elayed;Password=appelsenperen12;";
+		private IDbConfig _dbConfig;
+		protected BaseSql(IDbConfig dbConfig)
+		{
+			_dbConfig = dbConfig;
+		}
 
 		protected IEnumerable<TEntity> ExecuteQuery(SqlCommand command)
 		{
-			using (SqlConnection connection = new SqlConnection(_connectionString))
+			using (SqlConnection connection = new SqlConnection(_dbConfig.GetConnectionString()))
 			{
 				command.Connection = connection;
 				connection.Open();
@@ -39,7 +43,7 @@ namespace Data.Contexts
 
 		protected bool ExecuteNonQuery(SqlCommand command)
 		{
-			using (SqlConnection connection = new SqlConnection(_connectionString))
+			using (SqlConnection connection = new SqlConnection(_dbConfig.GetConnectionString()))
 			{
 				command.Connection = connection;
 				connection.Open();
@@ -57,6 +61,48 @@ namespace Data.Contexts
 					throw;
 				}
 				return true;
+			}
+		}
+
+		protected void ExecuteNonQueryStoredProcedure(string procedureName)
+		{
+			using (var conn = new SqlConnection(_dbConfig.GetConnectionString()))
+			using (var command = new SqlCommand(procedureName, conn)
+			{
+				CommandType = CommandType.StoredProcedure
+			})
+			{
+				conn.Open();
+				command.ExecuteNonQuery();
+			}
+		}
+
+		protected IEnumerable<TEntity> ExecuteStoredProcedure(string procedureName, List<SqlParameter> sqlParameters)
+		{
+			using (SqlConnection conn = new SqlConnection(_dbConfig.GetConnectionString()))
+			{
+				conn.Open();
+
+				SqlCommand cmd = new SqlCommand(procedureName, conn);
+
+				cmd.CommandType = CommandType.StoredProcedure;
+
+				foreach (var sqlParameter in sqlParameters)
+				{
+					cmd.Parameters.Add(sqlParameter);
+				}
+
+				using (SqlDataReader reader = cmd.ExecuteReader())
+				{
+					List<TEntity> items = new List<TEntity>();
+					while (reader.Read())
+					{
+						var item = CreateEntity();
+						Map(reader, item);
+						items.Add(item);
+					}
+					return items;
+				}
 			}
 		}
 

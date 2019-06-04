@@ -5,70 +5,96 @@
     Layout = "~/Views/Shared/Shop/_ShopLayout.cshtml";
 }
 
-<div id="notch-collection-container">
-    <h1>Details</h1>
+<div id="shop-detail-container">
 
-    <div>
-        <h4>Product</h4>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Price)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Price)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Sku)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Sku)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.StockQty)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.StockQty)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Weight)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Weight)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Length)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Length)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Width)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Width)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Height)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Height)
-            </dd>
-        </dl>
+    <h1>@Model.Name</h1>
+    <hr />
+
+    <div class="product-detail-main row">
+
+        <div class="col-7" class="images">
+
+            <div style="display: inline-block; opacity: 0.5; text-align: center; color: white; height: 300px; width: 80%; background: linear-gradient(#007bff, skyblue); border-radius: 10%;">
+                <h4>Image Placeholder</h4>
+            </div>
+
+        </div>
+
+        <div class="col-5">
+            <h4>Add to Cart</h4>
+
+            <input id="product-amount" type="number" min="1" value="1" />
+
+            <button class="btn btn-primary product-add-button" data-productid="@Model.Id">Add</button>
+
+        </div>
+
     </div>
+
+    <h4>Product Details</h4>
+    <hr />
+
+    <div class="product-detail-main row">
+
+        <div class="col-7">
+            
+            <div id="product-detail-specs">
+                
+                @* TODO: Put specs in their own database table *@
+                
+                <div class="product-spec-group">
+                    <div class="product-spec-group-title"><h6>General Properties</h6></div>
+
+                    <div class="product-spec row">
+                        <div class="product-spec-title col-sm">Description</div>
+                        <div class="product-spec-value col-sm">@Model.Description</div>
+                    </div>
+
+                    <div class="product-spec row">
+                        <div class="product-spec-title col-sm">SKU</div>
+                        <div class="product-spec-value col-sm">@Model.Sku</div>
+                    </div>
+                    
+                    <div class="product-spec row">
+                        <div class="product-spec-title col-sm">Price</div>
+                        <div class="product-spec-value col-sm">@Model.Price</div>
+                    </div>
+                </div>
+                
+
+                <div class="product-spec-group">
+                    <div class="product-spec-group-title"><h6>Dimensions</h6></div>
+
+                    <div class="product-spec row">
+                        <div class="product-spec-title col-sm">Length</div>
+                        <div class="product-spec-value col-sm">@Model.Length</div>
+                    </div>
+
+                    <div class="product-spec row">
+                        <div class="product-spec-title col-sm">Width</div>
+                        <div class="product-spec-value col-sm">@Model.Width</div>
+                    </div>
+
+                    <div class="product-spec row">
+                        <div class="product-spec-title col-sm">Height</div>
+                        <div class="product-spec-value col-sm">@Model.Height</div>
+                    </div>
+                </div>
+
+            </div>
+           
+
+        </div>
+
+        <div class="col-5">
+            
+
+        </div>
+
+    </div>
+
     <div>
         <a asp-action="Index">Back</a>
     </div>
+
 </div>

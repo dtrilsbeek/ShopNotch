@@ -14,9 +14,9 @@ namespace Logic
 	{
 		private CategoryRepository _categoryRepository;
 
-		public CategoryLogic()
+		public CategoryLogic(IDbConfig dbConfig)
 		{
-			_categoryRepository = new CategoryRepository(new CategorySqlContext());
+			_categoryRepository = new CategoryRepository(new CategorySqlContext(dbConfig));
 		}
 
 		public IEnumerable<Category> GetAll()

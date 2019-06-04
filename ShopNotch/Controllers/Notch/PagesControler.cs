@@ -1,42 +1,24 @@
-﻿using System.Collections.Generic;
-using Data.Models;
+﻿using Data.Models;
 using Logic;
 using Logic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using ShopNotch.Models;
-using ShopNotch.Models.Classes;
 
 namespace ShopNotch.Controllers.Notch
 {
 	[Area("Notch")]
-	public class ProductsController : Controller
+	public class PagesController : Controller
     {
-        private readonly ProductLogic _productLogic;
-        private readonly CategoryLogic _categoryLogic;
-        private Mapper _mapper;
+        private readonly PageLogic _pageLogic;
 
-        public ProductsController(ILogic<Product> productLogic, ILogic<Category> categoryLogic)
+        public PagesController(ILogic<Product> logic)
         {
-	        _productLogic = productLogic as ProductLogic;
-	        _categoryLogic = categoryLogic as CategoryLogic;
-			_mapper = new Mapper();
+	        _pageLogic = logic as PageLogic;
         }
 
         // GET: Products
         public IActionResult Index()
         {
-	        var products = _productLogic.GetAll();
-	        var model = new ProductViewModel
-	        {
-		        Products = new List<ProductModel>()
-	        };
-
-	        foreach (var product in products)
-	        {
-		        model.Products.Add(_mapper.GetProductModel(product));
-	        }
-
-            return View(model);
+            return View(_pageLogic.GetAll());
         }
 
         // GET: Products/Details/5
@@ -47,13 +29,13 @@ namespace ShopNotch.Controllers.Notch
 				return NotFound();
 			}
 
-			var product = _productLogic.GetById((int)id);
-			if (product == null)
+			var page = _pageLogic.GetById((int)id);
+			if (page == null)
 			{
 				return NotFound();
 			}
 
-			return View(_mapper.GetProductModel(product));
+			return View(page);
         }
 
         // GET: Products/Create
@@ -67,15 +49,15 @@ namespace ShopNotch.Controllers.Notch
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Name,Description,Price,Sku,StockQty,Weight,Length,Width,Height")] Product product)
+        public IActionResult Create([Bind("Id,Name,Description,Price,Sku,StockQty,Weight,Length,Width,Height")] Page page)
         {
             if (ModelState.IsValid)
             {
-                _productLogic.Add(product);
+                _pageLogic.Add(page);
                 
                 return RedirectToAction(nameof(Index));
             }
-            return View(_mapper.GetProductModel(product));
+            return View(page);
         }
 
         // GET: Products/Edit/5
@@ -83,17 +65,11 @@ namespace ShopNotch.Controllers.Notch
         {
             if (id == null) { return NotFound(); }
 
-            var product = _productLogic.GetById((int)id);
+            var product = _pageLogic.GetById((int)id);
 
             if (product == null) { return NotFound(); }
 
-			var model = new ProductViewModel
-			{
-				Product = _mapper.GetProductModel(product),
-				Tree = _categoryLogic.GetCategoryTree()
-			};
-
-            return View(model);
+            return View(product);
         }
 
         // POST: Products/Edit/5
@@ -101,20 +77,20 @@ namespace ShopNotch.Controllers.Notch
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,Name,Description,Price,Sku,StockQty,Weight,Length,Width,Height")] Product product)
+        public IActionResult Edit(int id, [Bind("Id,Name,Description,Price,Sku,StockQty,Weight,Length,Width,Height")] Page page)
         {
-            if (id != product.Id)
+            if (id != page.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-				_productLogic.Update(product);
+				_pageLogic.Update(page);
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(_mapper.GetProductModel(product));
+            return View(page);
         }
 
         // GET: Products/Delete/5
@@ -125,13 +101,13 @@ namespace ShopNotch.Controllers.Notch
                 return NotFound();
             }
 
-            var product = _productLogic.GetById((int) id);
-            if (product == null)
+            var page = _pageLogic.GetById((int) id);
+            if (page == null)
             {
                 return NotFound();
             }
 
-            return View(_mapper.GetProductModel(product));
+            return View(page);
         }
 
         // POST: Products/Delete/5
@@ -139,22 +115,27 @@ namespace ShopNotch.Controllers.Notch
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            var product = _productLogic.GetById(id);
+            var page = _pageLogic.GetById(id);
 
-			_productLogic.Delete(product);
+			_pageLogic.Delete(page);
             
             return RedirectToAction(nameof(Index));
         }
 
+        private bool ProductExists(int id)
+        {
+			return false; //(_productLogic.GetById(id))
+        }
+        
         public IActionResult Duplicate(int? id)
         {
 	        if (id == null) { return NotFound(); }
 
-	        var product = _productLogic.GetById((int) id);
-	        if (product == null) { return NotFound(); }
+	        var page = _pageLogic.GetById((int) id);
+	        if (page == null) { return NotFound(); }
 
-			product.Id = 0;
-			_productLogic.Add(product);
+			page.Id = 0;
+			_pageLogic.Add(page);
 
 			return RedirectToAction(nameof(Index));
 		}
