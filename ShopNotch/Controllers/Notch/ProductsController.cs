@@ -1,4 +1,5 @@
-﻿using Data.Models;
+﻿using System.Collections.Generic;
+using Data.Models;
 using Logic;
 using Logic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,18 @@ namespace ShopNotch.Controllers.Notch
         // GET: Products
         public IActionResult Index()
         {
-            return View(_productLogic.GetAll());
+	        var products = _productLogic.GetAll();
+	        var model = new ProductViewModel
+	        {
+		        Products = new List<ProductModel>()
+	        };
+
+	        foreach (var product in products)
+	        {
+		        model.Products.Add(_mapper.GetProductModel(product));
+	        }
+
+            return View(model);
         }
 
         // GET: Products/Details/5
