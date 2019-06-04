@@ -22,21 +22,10 @@ namespace Data.Contexts
 
 		public Category GetById(int id)
 		{
-			SqlCommand command = new SqlCommand(
-				"SELECT " +
-				"	child.Id," +
-				"	child.Name," +
-				"	parent.Id AS ParentId, " +
-				"parent.Name AS ParentName " +
-				"FROM Category AS child " +
-				"LEFT JOIN Category AS parent ON child.ParentId = parent.Id " +
-				"WHERE child.Id = @Id"
-			);
-
-			command.Parameters.AddWithValue("@Id", id);
-
-
-			return ExecuteQuery(command).First();
+			return ExecuteStoredProcedure("GetCategoryWithParentById", new List<SqlParameter>
+			{
+				new SqlParameter("Id", id)
+			}).First();
 		}
 
 		public IEnumerable<Category> GetParentCategories(Category category)
