@@ -15,28 +15,9 @@ namespace Data.Contexts
 			
 		}
 
-		/*public IEnumerable<Category> GetAll()
-		{
-			SqlCommand command = new SqlCommand(
-				"SELECT * FROM Category"
-			);
-
-			return ExecuteQuery(command);
-		}*/
-
 		public IEnumerable<Category> GetAll()
 		{
-			SqlCommand command = new SqlCommand(
-				"SELECT " +
-						"	child.Id," +
-						"	child.Name," +
-						"	parent.Id AS ParentId, " +
-				"parent.Name AS ParentName " +
-				"FROM Category AS child " +
-				"LEFT JOIN Category AS parent ON child.ParentId = parent.Id"
-			);
-
-			return ExecuteQuery(command);
+			return ExecuteStoredProcedure("GetCategoriesWithParent", new List<SqlParameter>());
 		}
 
 		public Category GetById(int id)
