@@ -1,4 +1,4 @@
-﻿CREATE TRIGGER dbo.OrderLogUpdateTrigger
+﻿CREATE TRIGGER dbo.OrderLogInsertTrigger
 ON [dbo].[Order]
 AFTER INSERT
 AS
@@ -10,7 +10,7 @@ BEGIN
     )
     SELECT
         i.Id,
-        'Order Updated'
+        'Order inserted'
     FROM
         inserted i
 
