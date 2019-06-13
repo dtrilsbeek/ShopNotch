@@ -13,29 +13,19 @@ namespace Logic
 			items = new Dictionary<int, int>();
 		}
 
-//		public IEnumerable<CartItem> GetAll()
-//		{
-//			return items;
-//		}
-//
-//		public void Add(CartItem entity)
-//		{
-//			items.Add(entity);
-//		}
-//
-//		public void Delete(CartItem entity)
-//		{
-//			items.RemoveAll(i => i.Id)
-//		}
-//
-//		public void Update(CartItem entity)
-//		{
-//			throw new System.NotImplementedException();
-//		}
-//
-//		public CartItem GetById(int id)
-//		{
-//			throw new System.NotImplementedException();
-//		}
+		public Dictionary<int, int> GetAll()
+		{
+			return items;
+		}
+
+		public void Add(int productId, int amount)
+		{
+			
+		}
+
+		public void Delete(int productId, int amount)
+		{
+
+		}
 	}
 }
