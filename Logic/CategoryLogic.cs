@@ -35,13 +35,6 @@ namespace Logic
 			_categoryRepository.Add(entity);
 		}
 
-		public void Add(Category entity, int[] parentCategories)
-		{
-			Category category = _categoryRepository.AddReturn(entity);
-
-			SetParentCategories(category, parentCategories);
-		}
-
 		public void Delete(Category entity)
 		{
 			_categoryRepository.Delete(entity);
@@ -62,19 +55,6 @@ namespace Logic
 			List<IParentEntity> categories = new List<IParentEntity>(_categoryRepository.GetAll().ToList());
 
 			return new TreeView(categories); ;
-		}
-
-		public IEnumerable<Category> GetParentCategories(Category category)
-		{
-			return _categoryRepository.GetParentCategories(category);
-		}
-
-		public void SetParentCategories(Category category, int[] parentCategories)
-		{
-			foreach (int parentCategory in parentCategories)
-			{
-				_categoryRepository.SetParentCategory(category, parentCategory);
-			}
 		}
 	}
 }

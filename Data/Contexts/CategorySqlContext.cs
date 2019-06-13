@@ -8,7 +8,7 @@ using Data.Models;
 
 namespace Data.Contexts
 {
-	public class CategorySqlContext : BaseSql<Category>, IContext<Category>
+	public class CategorySqlContext : BaseSql<Category>, ICategoryContext
 	{
 		public CategorySqlContext(IDbConfig dbConfig) : base(dbConfig)
 		{
