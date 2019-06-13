@@ -1,0 +1,174 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using Data.Interfaces;
+using Data.Models;
+
+namespace Data.Contexts.Mock
+{
+	public class CategoryMockingContext : IContext<Category>
+	{
+		private List<Category> categories;
+
+		public CategoryMockingContext()
+		{
+			categories = new List<Category>();
+		}
+
+		private void CreateCategories()
+		{
+			Dictionary<string, int?> categoryDictionary = new Dictionary<string, int?>();
+
+			categoryDictionary["Laptops"] = null;
+			categoryDictionary["Televisies"] = null;
+			categoryDictionary["Beamers"] = null;
+			categoryDictionary["Telefoons"] = null;
+			categoryDictionary["Gaming"] = 0;
+
+			int id = 0;
+			foreach (var (name, parentId) in categoryDictionary)
+			{
+				categories.Add(CreateCategory(id, name, parentId));
+				id++;
+			}
+		}
+
+		private Category CreateCategory(int id, string name, int? parentId)
+		{
+			return new Category
+			{
+				Id = id,
+				Name = name,
+				ParentId = parentId
+			};
+		}
+
+		public IEnumerable<Category> GetAll()
+		{
+			return ExecuteStoredProcedure("GetCategoriesWithParent", new List<SqlParameter>());
+		}
+
+		public Category GetById(int id)
+		{
+			return ExecuteStoredProcedure("GetCategoryWithParentById", new List<SqlParameter>
+			{
+				new SqlParameter("Id", id)
+			}).First();
+		}
+
+		public IEnumerable<Category> GetParentCategories(Category category)
+		{
+			SqlCommand command = new SqlCommand(
+		 "SELECT * FROM [Category] "+
+				"WHERE Id IN (" +
+					"SELECT CategoryId " +
+					"FROM ParentCategories " +
+					"WHERE CategoryId = @Id " +
+				")"
+			);
+
+			command.Parameters.AddWithValue("@Id", category.Id);
+
+			return ExecuteQuery(command);
+		}
+
+		protected override Category CreateEntity()
+		{
+			return new Category();
+		}
+
+		public void Add(Category entity)
+		{
+			string queryString =
+				"INSERT INTO Category " +
+				"(Name, ParentId) " +
+				"VALUES (@Name, @ParentId) ";
+
+			SqlCommand command = new SqlCommand(queryString);
+			command.Parameters.AddWithValue("@Name", entity.Name);
+			command.Parameters.AddWithValue("@ParentId", entity.ParentId ?? (object)DBNull.Value);
+
+			ExecuteNonQuery(command);
+		}
+
+		public void Delete(Category entity)
+		{
+			SqlCommand command = new SqlCommand(
+				$"DELETE FROM Category WHERE Id=@Id"
+				);
+
+			command.Parameters.AddWithValue("@Id", entity.Id);
+
+			ExecuteNonQuery(command);
+		}
+
+		public void Update(Category entity)
+		{
+			string queryString =
+				"UPDATE Category " +
+				"SET " +
+				"Name = @Name, ParentId = @ParentId " +
+				"WHERE Id = @Id";
+
+			SqlCommand command = new SqlCommand(queryString);
+			command.Parameters.AddWithValue("@Id", entity.Id);
+			command.Parameters.AddWithValue("@Name", entity.Name);
+			command.Parameters.AddWithValue("@ParentId", entity.ParentId ?? (object)DBNull.Value);
+
+			ExecuteNonQuery(command);
+		}
+
+		public void SetParentCategory(Category category, int parentCategory)
+		{
+			string queryString =
+				"INSERT INTO ParentCategory" +
+				"(CategoryId, ParentId) " +
+				"VALUES (@CategoryId, @ParentId)";
+
+			SqlCommand command = new SqlCommand(queryString);
+			command.Parameters.AddWithValue("@CategoryId", category.Id);
+			command.Parameters.AddWithValue("@ParentId", parentCategory);
+
+			ExecuteNonQuery(command);
+
+		}
+
+		public Category AddReturn(Category entity)
+		{
+			string queryString =
+				"DECLARE @ReturnTableVar table( Id int, Name nvarchar(100) ); " +
+				"INSERT Category " +
+				"(Name) " +
+				"OUTPUT INSERTED.Id, INSERTED.Name " +
+				"INTO @ReturnTableVar " +
+				"VALUES (@Name); " +
+				"SELECT Id, Name FROM @ReturnTableVar;";
+
+			SqlCommand command = new SqlCommand(queryString);
+			command.Parameters.AddWithValue("@Name", entity.Name);
+
+			return ExecuteQuery(command).First();
+		}
+
+
+		protected override void Map(IDataRecord record, Category entity)
+		{
+			entity.Id = (int)record["Id"];
+			entity.Name = ConvertFromDbVal<string>(record["Name"]);
+
+			entity.ParentId = ConvertFromDbVal<int?>(record["ParentId"]);
+			string pName = ConvertFromDbVal<string>(record["ParentName"]);
+			if (entity.ParentId != null)
+			{
+				entity.Parent = new Category
+				{
+					Id = (int) entity.ParentId,
+					Name = pName
+				};
+			}
+
+			
+		}
+	}
+}

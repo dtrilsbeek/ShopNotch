@@ -4,6 +4,7 @@ using System.Linq;
 using Data.Models;
 using Data.Repositories;
 using Data.Contexts;
+using Data.Contexts.Mock;
 using Data.Interfaces;
 using Logic.Helpers.TreeView;
 using Logic.Interfaces;
@@ -17,6 +18,11 @@ namespace Logic
 		public CategoryLogic(IDbConfig dbConfig)
 		{
 			_categoryRepository = new CategoryRepository(new CategorySqlContext(dbConfig));
+		}
+
+		public CategoryLogic()
+		{
+			_categoryRepository = new CategoryRepository(new CategoryMockingContext());
 		}
 
 		public IEnumerable<Category> GetAll()
