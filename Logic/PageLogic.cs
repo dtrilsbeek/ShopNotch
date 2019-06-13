@@ -9,7 +9,7 @@ using Logic.Interfaces;
 
 namespace Logic
 {
-	public class PageLogic : ILogic<Page>
+	public class PageLogic : IEntityLogic<Page>
 	{
 		private Repository<Page> _pageRepository;
 

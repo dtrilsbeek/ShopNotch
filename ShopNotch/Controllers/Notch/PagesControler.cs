@@ -10,7 +10,7 @@ namespace ShopNotch.Controllers.Notch
     {
         private readonly PageLogic _pageLogic;
 
-        public PagesController(ILogic<Product> logic)
+        public PagesController(IEntityLogic<Product> logic)
         {
 	        _pageLogic = logic as PageLogic;
         }

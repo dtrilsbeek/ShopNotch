@@ -14,12 +14,12 @@ namespace ShopNotch.Controllers.Notch
 	[Area("Notch")]
 	public class CategoriesController : Controller
     {
-        private CategoryLogic _categoryLogic;
+        private ICategoryLogic _categoryLogic;
         private Mapper _mapper;
 
-        public CategoriesController(ILogic<Category> logic)
+        public CategoriesController(ICategoryLogic logic)
         {
-	        _categoryLogic = logic as CategoryLogic;
+	        _categoryLogic = logic;
 			_mapper = new Mapper();
         }
 

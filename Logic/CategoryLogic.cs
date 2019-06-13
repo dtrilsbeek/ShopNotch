@@ -11,7 +11,7 @@ using Logic.Interfaces;
 
 namespace Logic
 {
-	public class CategoryLogic : ILogic<Category>
+	public class CategoryLogic : ICategoryLogic
 	{
 		private CategoryRepository _categoryRepository;
 

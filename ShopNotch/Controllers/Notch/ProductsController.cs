@@ -11,14 +11,14 @@ namespace ShopNotch.Controllers.Notch
 	[Area("Notch")]
 	public class ProductsController : Controller
     {
-        private readonly ProductLogic _productLogic;
-        private readonly CategoryLogic _categoryLogic;
+        private readonly IProductLogic _productLogic;
+        private readonly ICategoryLogic _categoryLogic;
         private Mapper _mapper;
 
-        public ProductsController(ILogic<Product> productLogic, ILogic<Category> categoryLogic)
+        public ProductsController(IProductLogic productLogic, ICategoryLogic categoryLogic)
         {
-	        _productLogic = productLogic as ProductLogic;
-	        _categoryLogic = categoryLogic as CategoryLogic;
+	        _productLogic = productLogic;
+	        _categoryLogic = categoryLogic;
 			_mapper = new Mapper();
         }
 

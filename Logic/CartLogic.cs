@@ -1,34 +1,41 @@
 ﻿using System.Collections.Generic;
-using Logic.Cart;
+//using Logic.Cart;
 using Logic.Interfaces;
 
 namespace Logic
 {
-	public class CartLogic : ILogic<CartItem>
+	public class CartLogic : ICartLogic
 	{
-		public IEnumerable<CartItem> GetAll()
+		private Dictionary<int, int> items;
+
+		public CartLogic()
 		{
-			throw new System.NotImplementedException();
+			items = new Dictionary<int, int>();
 		}
 
-		public void Add(CartItem entity)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public void Delete(CartItem entity)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public void Update(CartItem entity)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public CartItem GetById(int id)
-		{
-			throw new System.NotImplementedException();
-		}
+//		public IEnumerable<CartItem> GetAll()
+//		{
+//			return items;
+//		}
+//
+//		public void Add(CartItem entity)
+//		{
+//			items.Add(entity);
+//		}
+//
+//		public void Delete(CartItem entity)
+//		{
+//			items.RemoveAll(i => i.Id)
+//		}
+//
+//		public void Update(CartItem entity)
+//		{
+//			throw new System.NotImplementedException();
+//		}
+//
+//		public CartItem GetById(int id)
+//		{
+//			throw new System.NotImplementedException();
+//		}
 	}
 }
