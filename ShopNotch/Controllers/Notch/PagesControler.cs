@@ -21,7 +21,6 @@ namespace ShopNotch.Controllers.Notch
             return View(_pageLogic.GetAll());
         }
 
-        // GET: Products/Details/5
         public IActionResult Details(int? id)
         {
             if (id == null)
@@ -38,15 +37,11 @@ namespace ShopNotch.Controllers.Notch
 			return View(page);
         }
 
-        // GET: Products/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Products/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("Id,Name,Description,Price,Sku,StockQty,Weight,Length,Width,Height")] Page page)
@@ -60,7 +55,6 @@ namespace ShopNotch.Controllers.Notch
             return View(page);
         }
 
-        // GET: Products/Edit/5
         public IActionResult Edit(int? id)
         {
             if (id == null) { return NotFound(); }
@@ -72,9 +66,6 @@ namespace ShopNotch.Controllers.Notch
             return View(product);
         }
 
-        // POST: Products/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("Id,Name,Description,Price,Sku,StockQty,Weight,Length,Width,Height")] Page page)
@@ -110,7 +101,6 @@ namespace ShopNotch.Controllers.Notch
             return View(page);
         }
 
-        // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
