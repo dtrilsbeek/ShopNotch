@@ -7,7 +7,7 @@ using Data.Models;
 
 namespace Data.Contexts
 {
-	public class ProductSqlContext : BaseSql<Product>, IContext<Product>
+	public class ProductSqlContext : BaseSql<Product>, IProductContext
 	{
 		public ProductSqlContext(IDbConfig dbConfig) : base(dbConfig)
 		{

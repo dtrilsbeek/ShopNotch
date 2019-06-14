@@ -14,10 +14,10 @@ namespace Logic
 	{
 		private ProductRepository _productRepository;
 
-		//		public ProductLogic(IDbConfig dbConfig)
-		//		{
-		//			_productRepository = new ProductRepository( new ProductSqlContext(dbConfig));
-		//		}
+		public ProductLogic(IDbConfig dbConfig)
+		{
+			_productRepository = new ProductRepository( new ProductSqlContext(dbConfig));
+		}
 		public ProductLogic()
 		{
 			_productRepository = new ProductRepository(new ProductMockingContext());

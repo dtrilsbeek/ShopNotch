@@ -52,8 +52,8 @@ namespace ShopNotch
 			});
 
 			services.AddSingleton<IDbConfig, DbConfig>(opt => new DbConfig(Configuration.GetSection("DbConfig")["ShopNotchContext"]));
-			services.AddSingleton<IProductLogic, ProductLogic>();
-			services.AddSingleton<ICategoryLogic, CategoryLogic>();
+			services.AddTransient<IProductLogic, ProductLogic>();
+			services.AddTransient<ICategoryLogic, CategoryLogic>();
 			services.AddTransient<ICartLogic, CartLogic>();
 			
 
