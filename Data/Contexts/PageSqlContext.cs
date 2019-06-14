@@ -35,17 +35,6 @@ namespace Data.Contexts
 				"VALUES (@Name, @Description, @Price, @Sku, @Length, @Width, @Height, @StockQty, @Weight)";
 
 			SqlCommand command = new SqlCommand(queryString);
-/*
-			command.Parameters.AddWithValue("@Name", entity.Name);
-			command.Parameters.AddWithValue("@Description", entity.Description);
-			command.Parameters.AddWithValue("@Price", entity.Price);
-			command.Parameters.AddWithValue("@Sku", entity.Sku);
-			command.Parameters.AddWithValue("@Length", entity.Length);
-			command.Parameters.AddWithValue("@Width", entity.Width);
-			command.Parameters.AddWithValue("@Height", entity.Height);
-			command.Parameters.AddWithValue("@StockQty", entity.StockQty);
-			command.Parameters.AddWithValue("@Weight", entity.Weight);
-*/
 
 			ExecuteNonQuery(command);
 		}
@@ -78,18 +67,6 @@ namespace Data.Contexts
 				"WHERE Id = @Id";
 
 			SqlCommand command = new SqlCommand(queryString);
-/*
-			command.Parameters.AddWithValue("@Id", entity.Id);
-			command.Parameters.AddWithValue("@Name", entity.Name);
-			command.Parameters.AddWithValue("@Description", entity.Description);
-			command.Parameters.AddWithValue("@Price", entity.Price);
-			command.Parameters.AddWithValue("@Sku", entity.Sku);
-			command.Parameters.AddWithValue("@Length", entity.Length);
-			command.Parameters.AddWithValue("@Width", entity.Width);
-			command.Parameters.AddWithValue("@Height", entity.Height);
-			command.Parameters.AddWithValue("@StockQty", entity.StockQty);
-			command.Parameters.AddWithValue("@Weight", entity.Weight);
-*/
 
 			ExecuteNonQuery(command);
 		}
@@ -109,15 +86,6 @@ namespace Data.Contexts
 		protected override void Map(IDataRecord record, Page entity)
 		{
 			entity.Id = (int)record["Id"];
-/*			entity.Name = ConvertFromDbVal<string>(record["Name"]);
-			entity.Description = ConvertFromDbVal<string>(record["Description"]);
-			entity.Price = ConvertFromDbVal<decimal>(record["Price"]);
-			entity.Sku = ConvertFromDbVal<string>(record["Sku"]);
-			entity.Length = ConvertFromDbVal<double>(record["Length"]);
-			entity.Width = ConvertFromDbVal<double>(record["Width"]);
-			entity.Height = ConvertFromDbVal<double>(record["Height"]);
-			entity.StockQty = ConvertFromDbVal<int>(record["StockQty"]);
-			entity.Weight = ConvertFromDbVal<double>(record["Weight"]);*/
 		}
 	}
 }

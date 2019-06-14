@@ -8,7 +8,7 @@ using Data.Models;
 
 namespace Data.Contexts.Mock
 {
-	public class CategoryMockingContext : IContext<Category>, ICategoryContext
+	public class CategoryMockingContext : ICategoryContext
 	{
 		private List<Category> categories;
 
