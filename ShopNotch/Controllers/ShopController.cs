@@ -16,13 +16,13 @@ namespace ShopNotch.Controllers
 {
 	public class ShopController : Controller
 	{
-		private CategoryLogic _categoryLogic;
-		private ProductLogic _productLogic;
+		private ICategoryLogic _categoryLogic;
+		private IProductLogic _productLogic;
 
-		public ShopController(ILogic<Category> categoryLogic, ILogic<Product> productLogic)
+		public ShopController(ICategoryLogic categoryLogic, IProductLogic productLogic)
 		{
-			_categoryLogic = categoryLogic as CategoryLogic;
-			_productLogic = productLogic as ProductLogic;
+			_categoryLogic = categoryLogic;
+			_productLogic = productLogic;
 		}
 
 		public IActionResult Index()
@@ -104,9 +104,7 @@ namespace ShopNotch.Controllers
 			return View(model);
 		}
 
-
 		[HttpPost]
-		/*[Produces("application/json")]*/
 		public IActionResult AddToCart(int? productId, int? amount)
 		{
 			if (productId == null || amount == null) return NotFound();

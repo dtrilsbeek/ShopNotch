@@ -14,16 +14,15 @@ namespace ShopNotch.Controllers.Notch
 	[Area("Notch")]
 	public class CategoriesController : Controller
     {
-        private CategoryLogic _categoryLogic;
+        private ICategoryLogic _categoryLogic;
         private Mapper _mapper;
 
-        public CategoriesController(ILogic<Category> logic)
+        public CategoriesController(ICategoryLogic logic)
         {
-	        _categoryLogic = logic as CategoryLogic;
+	        _categoryLogic = logic;
 			_mapper = new Mapper();
         }
 
-        // GET: Categories
         public IActionResult Index()
         {
 			CategoryViewModel model = new CategoryViewModel
@@ -42,7 +41,6 @@ namespace ShopNotch.Controllers.Notch
 			return View( model );
         }
 
-        // GET: Categories/Details/5
         public IActionResult Details(int? id)
         {
             if (id == null)
@@ -65,7 +63,6 @@ namespace ShopNotch.Controllers.Notch
 			return View(model);
         }
 
-        // GET: Categories/Create
         public IActionResult Create()
         {
 	        var categories = _categoryLogic.GetAll();
@@ -84,9 +81,6 @@ namespace ShopNotch.Controllers.Notch
 			return View(model);
         }
 
-		// POST: Categories/Create
-		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(CategoryViewModel model)
@@ -107,7 +101,6 @@ namespace ShopNotch.Controllers.Notch
             return View(model);
         }
 
-        // GET: Categories/Edit/5
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -131,9 +124,6 @@ namespace ShopNotch.Controllers.Notch
             return View(model);
         }
 
-        // POST: Categories/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, CategoryViewModel model)
@@ -169,7 +159,6 @@ namespace ShopNotch.Controllers.Notch
             return View(model);
         }
 
-        // GET: Categories/Delete/5
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -186,7 +175,6 @@ namespace ShopNotch.Controllers.Notch
             return View(category);
         }
 
-        // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)

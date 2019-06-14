@@ -9,7 +9,7 @@ using Logic.Interfaces;
 
 namespace Logic
 {
-	public class ProductLogic : ILogic<Product>
+	public class ProductLogic : IProductLogic
 	{
 		private ProductRepository _productRepository;
 

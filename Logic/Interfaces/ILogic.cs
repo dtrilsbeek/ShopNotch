@@ -4,7 +4,7 @@ using Data.Models;
 
 namespace Logic.Interfaces
 {
-	public interface ILogic<T> where T : IEntity
+	public interface IEntityLogic<T> where T : IEntity
 	{
 		IEnumerable<T> GetAll();
 

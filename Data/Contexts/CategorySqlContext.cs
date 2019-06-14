@@ -8,54 +8,24 @@ using Data.Models;
 
 namespace Data.Contexts
 {
-	public class CategorySqlContext : BaseSql<Category>, IContext<Category>
+	public class CategorySqlContext : BaseSql<Category>, ICategoryContext
 	{
 		public CategorySqlContext(IDbConfig dbConfig) : base(dbConfig)
 		{
 			
 		}
 
-		/*public IEnumerable<Category> GetAll()
-		{
-			SqlCommand command = new SqlCommand(
-				"SELECT * FROM Category"
-			);
-
-			return ExecuteQuery(command);
-		}*/
-
 		public IEnumerable<Category> GetAll()
 		{
-			SqlCommand command = new SqlCommand(
-				"SELECT " +
-						"	child.Id," +
-						"	child.Name," +
-						"	parent.Id AS ParentId, " +
-				"parent.Name AS ParentName " +
-				"FROM Category AS child " +
-				"LEFT JOIN Category AS parent ON child.ParentId = parent.Id"
-			);
-
-			return ExecuteQuery(command);
+			return ExecuteStoredProcedure("GetCategoriesWithParent", new List<SqlParameter>());
 		}
 
 		public Category GetById(int id)
 		{
-			SqlCommand command = new SqlCommand(
-				"SELECT " +
-				"	child.Id," +
-				"	child.Name," +
-				"	parent.Id AS ParentId, " +
-				"parent.Name AS ParentName " +
-				"FROM Category AS child " +
-				"LEFT JOIN Category AS parent ON child.ParentId = parent.Id " +
-				"WHERE child.Id = @Id"
-			);
-
-			command.Parameters.AddWithValue("@Id", id);
-
-
-			return ExecuteQuery(command).First();
+			return ExecuteStoredProcedure("GetCategoryWithParentById", new List<SqlParameter>
+			{
+				new SqlParameter("Id", id)
+			}).First();
 		}
 
 		public IEnumerable<Category> GetParentCategories(Category category)

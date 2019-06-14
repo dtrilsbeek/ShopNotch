@@ -11,18 +11,17 @@ namespace ShopNotch.Controllers.Notch
 	[Area("Notch")]
 	public class ProductsController : Controller
     {
-        private readonly ProductLogic _productLogic;
-        private readonly CategoryLogic _categoryLogic;
+        private readonly IProductLogic _productLogic;
+        private readonly ICategoryLogic _categoryLogic;
         private Mapper _mapper;
 
-        public ProductsController(ILogic<Product> productLogic, ILogic<Category> categoryLogic)
+        public ProductsController(IProductLogic productLogic, ICategoryLogic categoryLogic)
         {
-	        _productLogic = productLogic as ProductLogic;
-	        _categoryLogic = categoryLogic as CategoryLogic;
+	        _productLogic = productLogic;
+	        _categoryLogic = categoryLogic;
 			_mapper = new Mapper();
         }
 
-        // GET: Products
         public IActionResult Index()
         {
 	        var products = _productLogic.GetAll();
@@ -39,7 +38,6 @@ namespace ShopNotch.Controllers.Notch
             return View(model);
         }
 
-        // GET: Products/Details/5
         public IActionResult Details(int? id)
         {
             if (id == null)
@@ -56,15 +54,11 @@ namespace ShopNotch.Controllers.Notch
 			return View(_mapper.GetProductModel(product));
         }
 
-        // GET: Products/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Products/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("Id,Name,Description,Price,Sku,StockQty,Weight,Length,Width,Height")] Product product)
@@ -78,7 +72,6 @@ namespace ShopNotch.Controllers.Notch
             return View(_mapper.GetProductModel(product));
         }
 
-        // GET: Products/Edit/5
         public IActionResult Edit(int? id)
         {
             if (id == null) { return NotFound(); }
@@ -96,9 +89,6 @@ namespace ShopNotch.Controllers.Notch
             return View(model);
         }
 
-        // POST: Products/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("Id,Name,Description,Price,Sku,StockQty,Weight,Length,Width,Height")] Product product)
@@ -117,7 +107,6 @@ namespace ShopNotch.Controllers.Notch
             return View(_mapper.GetProductModel(product));
         }
 
-        // GET: Products/Delete/5
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -134,7 +123,6 @@ namespace ShopNotch.Controllers.Notch
             return View(_mapper.GetProductModel(product));
         }
 
-        // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)

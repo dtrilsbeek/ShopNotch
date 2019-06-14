@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Data.Contexts;
+using Data.Contexts.Mock;
 using Data.Interfaces;
 using Data.Models;
 
@@ -9,11 +10,11 @@ namespace Data.Repositories
 {
 	public class CategoryRepository : Repository<Category>
 	{
-		private CategorySqlContext _context;
+		private static ICategoryContext _context;
 
-		public CategoryRepository(IContext<Category> context):base(context)
+		public CategoryRepository(ICategoryContext context):base(context)
 		{
-			_context = (CategorySqlContext) context;
+			_context = context;
 		}
 
 		public Category AddReturn(Category entity)

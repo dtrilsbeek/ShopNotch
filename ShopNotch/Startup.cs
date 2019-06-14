@@ -54,10 +54,14 @@ namespace ShopNotch
 			//			services.AddScoped<ILogic, ProductLogic>();
 			// services.AddSingleton<IDbConfig>(Configuration.GetSection("DbConfig").Get<DbConfig>());
 
-			IDbConfig dbConfig = new DbConfig(Configuration.GetSection("DbConfig")["ShopNotchContext"]);
+//			IDbConfig dbConfig = new DbConfig(Configuration.GetSection("DbConfig")["ShopNotchContext"]);
 
-			services.AddSingleton<ILogic<Product>>( new ProductLogic( dbConfig ));
-			services.AddSingleton<ILogic<Category>>( new CategoryLogic( dbConfig ));
+//			services.AddDbContext<DbConfig>(options =>
+//				options.Options.(Configuration.GetSection("DbConfig")["ShopNotchContext"]));
+
+			services.AddSingleton<IDbConfig, DbConfig>(opt => new DbConfig(Configuration.GetSection("DbConfig")["ShopNotchContext"]));
+			services.AddSingleton<IProductLogic, ProductLogic>();
+			services.AddSingleton<ICategoryLogic, CategoryLogic>();
 			
 
 			//			services.Configure<DbConfig>(Configuration.GetSection("DbConfig"));
