@@ -15,10 +15,10 @@ namespace Logic
 	{
 		private CategoryRepository _categoryRepository;
 
-		public CategoryLogic(IDbConfig dbConfig)
-		{
-			_categoryRepository = new CategoryRepository(new CategorySqlContext(dbConfig));
-		}
+//		public CategoryLogic(IDbConfig dbConfig)
+//		{
+//			_categoryRepository = new CategoryRepository(new CategorySqlContext(dbConfig));
+//		}
 
 		public CategoryLogic()
 		{

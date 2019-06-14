@@ -51,27 +51,13 @@ namespace ShopNotch
 				options.Cookie.IsEssential = true;
 			});
 
-			//			services.AddScoped<ILogic, ProductLogic>();
-			// services.AddSingleton<IDbConfig>(Configuration.GetSection("DbConfig").Get<DbConfig>());
-
-//			IDbConfig dbConfig = new DbConfig(Configuration.GetSection("DbConfig")["ShopNotchContext"]);
-
-//			services.AddDbContext<DbConfig>(options =>
-//				options.Options.(Configuration.GetSection("DbConfig")["ShopNotchContext"]));
-
 			services.AddSingleton<IDbConfig, DbConfig>(opt => new DbConfig(Configuration.GetSection("DbConfig")["ShopNotchContext"]));
 			services.AddSingleton<IProductLogic, ProductLogic>();
 			services.AddSingleton<ICategoryLogic, CategoryLogic>();
+			services.AddTransient<ICartLogic, CartLogic>();
 			
 
-			//			services.Configure<DbConfig>(Configuration.GetSection("DbConfig"));
-			//			services.AddSingleton();
-
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-			//var connection = @"Data Source=(localdb)\mssqllocaldb;AttachDbFilename=C:\Users\dtril\Documents\ShopNotch\TestDB.mdf;Initial Catalog=TestDb;Integrated Security=True";
-			//var connection = @"Data Source=mssql.fhict.local;Initial Catalog=dbi391176_elayed;Integrated Security=False;Persist Security Info=False;User ID=dbi391176_elayed;Password=testappels123;";
-			//services.AddDbContext<ShopNotchDbContext>(options => options.UseSqlServer(connection));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

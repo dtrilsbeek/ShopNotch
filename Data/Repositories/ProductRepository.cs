@@ -9,15 +9,15 @@ namespace Data.Repositories
 {
 	public class ProductRepository : Repository<Product>
 	{
-		private ProductSqlContext _context;
+		private IProductContext _context;
 
-		public ProductRepository(IContext<Product> context):base(context)
+		public ProductRepository(IProductContext context):base(context)
 		{
-			_context = (ProductSqlContext) context;
+			_context = context;
 		}
 
 
-		public IEnumerable<Product> getByCategoryId(int id)
+		public IEnumerable<Product> GetByCategoryId(int id)
 		{
 			return _context.GetByCategoryId(id);
 		}

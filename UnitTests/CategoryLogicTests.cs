@@ -7,7 +7,6 @@ namespace UnitTests
 	public class CategoryLogicTests
 	{
 		// TODO: Apply naming conventions
-
 		[TestMethod]
 		public void TestCategoryTree()
 		{

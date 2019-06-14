@@ -4,6 +4,7 @@ using System.Linq;
 using Data.Models;
 using Data.Repositories;
 using Data.Contexts;
+using Data.Contexts.Mock;
 using Data.Interfaces;
 using Logic.Interfaces;
 
@@ -13,9 +14,13 @@ namespace Logic
 	{
 		private ProductRepository _productRepository;
 
-		public ProductLogic(IDbConfig dbConfig)
+		//		public ProductLogic(IDbConfig dbConfig)
+		//		{
+		//			_productRepository = new ProductRepository( new ProductSqlContext(dbConfig));
+		//		}
+		public ProductLogic()
 		{
-			_productRepository = new ProductRepository( new ProductSqlContext(dbConfig));
+			_productRepository = new ProductRepository(new ProductMockingContext());
 		}
 
 		public IEnumerable<Product> GetAll()
@@ -45,7 +50,7 @@ namespace Logic
 
 		public IEnumerable<Product> GetByCategoryId(int id)
 		{
-			return _productRepository.getByCategoryId(id);
+			return _productRepository.GetByCategoryId(id);
 		}
 	}
 }
