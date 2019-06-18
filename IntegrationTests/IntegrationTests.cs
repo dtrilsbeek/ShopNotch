@@ -5,11 +5,11 @@ using Xunit;
 namespace IntegrationTests
 {
 	public class IntegrationTests
-		: IClassFixture<WebApplicationFactory<ShopNotch.Startup>>
+		: IClassFixture<WebApplicationFactory<ShopNotch.TestStartup>>
 	{
-		private readonly WebApplicationFactory<ShopNotch.Startup> _factory;
+		private readonly WebApplicationFactory<ShopNotch.TestStartup> _factory;
 
-		public IntegrationTests(WebApplicationFactory<ShopNotch.Startup> factory)
+		public IntegrationTests(WebApplicationFactory<ShopNotch.TestStartup> factory)
 		{
 			_factory = factory;
 		}
@@ -29,6 +29,7 @@ namespace IntegrationTests
 		[InlineData("/Notch/Categories/Delete/2")]
 		public async Task Get_EndpointsReturnSuccessAndCorrectContentType(string url)
 		{
+			
 			// Arrange
 			var client = _factory.CreateClient();
 
@@ -40,5 +41,7 @@ namespace IntegrationTests
 			Assert.Equal("text/html; charset=utf-8",
 				response.Content.Headers.ContentType.ToString());
 		}
+
+
 	}
 }
