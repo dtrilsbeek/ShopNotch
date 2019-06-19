@@ -57,26 +57,8 @@ namespace IntegrationTests
 				response.Content.Headers.ContentType.ToString());
 		}
 
-		/*[Fact]
-		public async Task Post_DeleteAllMessagesHandler_ReturnsRedirectToRoot()
-		{
-			// Arrange
-			var defaultPage = await _client.GetAsync("/");
-			var content = await HtmlHelpers.GetDocumentAsync(defaultPage);
-
-			//Act
-			var response = await _client.SendAsync(
-				(IHtmlFormElement)content.QuerySelector("form[id='messages']"),
-				(IHtmlButtonElement)content.QuerySelector("button[id='deleteAllBtn']"));
-
-			// Assert
-			Assert.Equal(HttpStatusCode.OK, defaultPage.StatusCode);
-			Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
-			Assert.Equal("/", response.Headers.Location.OriginalString);
-		}*/
-
 		[Fact]
-		public async Task Post_ProductForm_ReturnsSuccess_WhenAllFieldsAre()
+		public async Task Post_ProductForm_ReturnsSuccess_WhenAllFieldsAreFilled()
 		{
 			// Arrange
 			var client = _factory.CreateClient();
@@ -84,24 +66,8 @@ namespace IntegrationTests
 			var content = await HtmlHelpers.GetDocumentAsync(defaultPage);
 			var form = (IHtmlFormElement) content.QuerySelector("form[id='save-product']");
 			var button = (IHtmlButtonElement) content.QuerySelector("button[id='save-product-button']");
-			var messageText = string.Empty;
-
-
 
 			// Act
-/*			var response = await form.SubmitAsync(new
-			{
-				Name = "TestProductName",
-				Description = "TestProductName",
-				Price = "1234",
-				Sku = "test-sku",
-				StockQty = "1233",
-				Weight = "12",
-				Length = "22",
-				Width = "11",
-				Height = "10"
-			});*/
-
 			var response = await client.SendAsync(
 				form,
 				button,
@@ -123,8 +89,8 @@ namespace IntegrationTests
 			// Assert
 			Assert.Equal(HttpStatusCode.OK, responseCode );
 			// A ModelState failure returns to Page (200-OK) and doesn't redirect.
-//			response.EnsureSuccessStatusCode();
-//			Assert.Null(response.Headers.Location?.OriginalString);
+			response.EnsureSuccessStatusCode();
+			Assert.Null(response.Headers.Location?.OriginalString);
 		}
 	}
 }
