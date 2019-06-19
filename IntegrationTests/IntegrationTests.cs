@@ -2,11 +2,15 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using AngleSharp.Html.Dom;
 using Data.Contexts;
 using Data.Models;
+using IntegrationTests.Helpers;
 using Logic;
 using Logic.Interfaces;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Xunit;
 using Xunit.Sdk;
 
