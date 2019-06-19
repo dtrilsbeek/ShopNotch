@@ -13,49 +13,44 @@
 
     <ul class="category-tree">
 
-        @foreach (Node node in Model.Tree.Nodes)
-        {
-            <li>
-                @Html.Partial("_CategorySelectList", node)
-            </li>
-        }
-    
+        @Html.Partial("_CategorySelectList", Model.Tree)
+
     </ul>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Category.Name)
-                    </th>
-                    <th>
-                        Parent Category
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Category.Name)
+            </th>
+            <th>
+                Parent Category
+            </th>
+            <th></th>
+        </tr>
+        </thead>
 
-            <tbody>
+        <tbody>
 
-                @foreach (var item in Model.Categories)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Parent.Name)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        </td>
-                    </tr>
-                }
+        @foreach (var item in Model.Categories)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Parent.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
 
-            </tbody>
+        </tbody>
 
-        </table>
+    </table>
 
 </div>
