@@ -29,8 +29,13 @@ namespace ShopNotch
 
 		public IConfiguration Configuration { get; }
 
+		public virtual DbConfig GetDbConfig()
+		{
+			return new DbConfig(Configuration.GetSection("DbConfig")["ShopNotchContext"]);
+		}
+
 		// This method gets called by the runtime. Use this method to add services to the container.
-		public void ConfigureServices(IServiceCollection services)
+		public virtual void ConfigureServices(IServiceCollection services)
 		{
 			services.Configure<CookiePolicyOptions>(options =>
 			{
@@ -51,7 +56,8 @@ namespace ShopNotch
 				options.Cookie.IsEssential = true;
 			});
 
-			services.AddSingleton<IDbConfig, DbConfig>(opt => new DbConfig(Configuration.GetSection("DbConfig")["ShopNotchContext"]));
+//			services.AddSingleton<IDbConfig, DbConfig>(opt => new DbConfig(Configuration.GetSection("DbConfig")["ShopNotchTestContext"]));
+			services.AddSingleton<IDbConfig, DbConfig>(opt => GetDbConfig());
 			services.AddTransient<IProductLogic, ProductLogic>();
 			services.AddTransient<ICategoryLogic, CategoryLogic>();
 			services.AddTransient<ICartLogic, CartLogic>();
