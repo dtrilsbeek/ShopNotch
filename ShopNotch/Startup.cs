@@ -51,6 +51,7 @@ namespace ShopNotch
 				options.Cookie.IsEssential = true;
 			});
 
+//			services.AddSingleton<IDbConfig, DbConfig>(opt => new DbConfig(Configuration.GetSection("DbConfig")["ShopNotchTestContext"]));
 			services.AddSingleton<IDbConfig, DbConfig>(opt => new DbConfig(Configuration.GetSection("DbConfig")["ShopNotchContext"]));
 			services.AddTransient<IProductLogic, ProductLogic>();
 			services.AddTransient<ICategoryLogic, CategoryLogic>();
