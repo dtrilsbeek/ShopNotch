@@ -134,10 +134,8 @@
 
                 <div class="notch-card-content">
 
-                    @foreach (var Node in Model.Tree.Nodes)
-                    {
-                        Html.RenderPartial("_CategorySelectList", Node);
-                    }
+                    @Html.Partial("_CategorySelectList", Model.Tree)
+                    
                 </div>
             </div>
 

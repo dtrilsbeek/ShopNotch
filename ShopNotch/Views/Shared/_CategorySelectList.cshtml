@@ -1,15 +1,9 @@
 ﻿@using Logic.Helpers.TreeView
 @using Microsoft.AspNetCore.Html
 
-@model Node
+@model TreeView
 
-
-<span class="caret">@Model.Entity.Name</span>
-<ul class="nested">
-    @foreach (Node subNode in Model.SubNodes)
-    {
-        <li>
-            @Html.Partial("_CategorySelectList", subNode)
-        </li>
-    }
-</ul>
+@foreach (var node in Model.Nodes)
+{
+    Html.RenderPartial("_CategorySelectListNode", node);
+}
