@@ -1,0 +1,159 @@
+﻿@model ShopNotch.Models.Classes.ProductModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Notch/Views/Shared/_NotchLayout.cshtml";
+}
+<div class="row">
+    <div id="left-menu" class="col-3">
+
+        <div class="left-menu-block">
+            <h5>General</h5>
+            <ul>
+                <li><a>Title</a></li>
+                <li><a>Description</a></li>
+                <li><a>Price</a></li>
+            </ul>
+        </div>
+
+        <div class="left-menu-block active">
+            <h5>Inventory</h5>
+            <ul>
+                <li><a>SKU</a></li>
+                <li><a>Stock quantity</a></li>
+            </ul>
+        </div>
+
+        <div class="left-menu-block">
+            <h5>Shipping</h5>
+            <ul>
+                <li><a>Weight</a></li>
+                <li><a>Dimensions</a></li>
+            </ul>
+        </div>
+
+        <div class="left-menu-block">
+            <h5>Category</h5>
+            <ul>
+                <li><a>All categories</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="col-6">
+
+        <div class="edit-header">
+            <div class="float-left">
+                <h1>Create Product</h1>
+            </div>
+
+            <div class="float-right">
+                <button type="submit" form="save-product" class="btn btn-primary" id="save-product-button">Save</button>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+        <hr />
+
+        <form id="save-product" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="notch-card">
+                <h4 class="notch-card-title">General</h4>
+
+                <div class="notch-card-content">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Price" class="control-label"></label>
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="notch-card">
+                <h4 class="notch-card-title">Inventory</h4>
+
+                <div class="notch-card-content">
+                    <div class="form-group">
+                        <label asp-for="Sku" class="control-label"></label>
+                        <input asp-for="Sku" class="form-control" />
+                        <span asp-validation-for="Sku" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StockQty" class="control-label"></label>
+                        <input asp-for="StockQty" class="form-control" />
+                        <span asp-validation-for="StockQty" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="notch-card">
+                <h4 class="notch-card-title">Shipping</h4>
+
+                <div class="notch-card-content">
+                    <div class="form-group">
+                        <label asp-for="Weight" class="control-label"></label>
+                        <input asp-for="Weight" class="form-control" />
+                        <span asp-validation-for="Weight" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="notch-card-content">
+                    <div class="form-group">
+                        <label asp-for="Length" class="control-label"></label>
+                        <input asp-for="Length" class="form-control" />
+                        <span asp-validation-for="Length" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Width" class="control-label"></label>
+                        <input asp-for="Width" class="form-control" />
+                        <span asp-validation-for="Width" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Height" class="control-label"></label>
+                        <input asp-for="Height" class="form-control" />
+                        <span asp-validation-for="Height" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="notch-card">
+                <h4 class="notch-card-title">Category</h4>
+
+                <div class="notch-card-content">
+                    category list
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+        </form>
+
+
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+
+    </div>
+    <div id="right-menu" class="col-3">
+        <ul>
+            <li><a asp-area="Notch" asp-controller="Products" asp-action="Create">Another quick action</a></li>
+        </ul>
+    </div>
+
+</div>

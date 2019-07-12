@@ -104,7 +104,16 @@ namespace ShopNotch.Controllers.Notch
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(_mapper.GetProductModel(product));
+            
+            var model = new ProductViewModel
+            {
+	            Products = new List<ProductModel>
+	            {
+		            _mapper.GetProductModel(product)
+	            }
+            };
+            
+            return View(model);
         }
 
         public IActionResult Delete(int? id)
