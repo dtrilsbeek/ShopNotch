@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using Data.Models;
 using Logic.Interfaces;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
-namespace Logic
+namespace Logic.Helpers
 {
 	public class CartLogic : ICartLogic
 	{
@@ -51,7 +52,7 @@ namespace Logic
 			return products;
 		}
 
-		public void Add(int productId, int amount)
+		public Dictionary<int, int> Add(int productId, int amount)
 		{
 			if (_items.ContainsKey(productId))
 			{
@@ -61,42 +62,14 @@ namespace Logic
 			{
 				_items[productId] = amount;
 			}
+
+			return _items;
 		}
 
 		public void Delete(int productId, int amount)
 		{
 
 		}
-		
-		
-		public void AddToCart(int? productId, int? amount)
-		{
-			if (productId == null || amount == null) return NotFound();
 
-			var product = _productLogic.GetById((int) productId);
-
-			if (product == null) return NotFound();
-
-			CartViewModel model;
-			var cart = HttpContext.Session.GetString("CartItems");
-
-			if (!string.IsNullOrEmpty(cart))
-			{
-				model = JsonConvert.DeserializeObject<CartViewModel>(cart);
-			}
-			else
-			{
-				model = new CartViewModel
-				{
-					Items = new Dictionary<int, int>()
-				};
-			}
-
-			AddToDictionary(model.Items, (int) productId, (int) amount);
-
-			HttpContext.Session.SetString("CartItems", JsonConvert.SerializeObject(model));
-
-			return new OkResult();
-		}
 	}
 }

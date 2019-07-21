@@ -6,8 +6,7 @@ namespace Logic.Interfaces
 	{
 		Dictionary<int, int> GetAll();
 		Dictionary<int, CartItem> GetAllProducts();
-		void Add(int productId, int amount);
+		Dictionary<int, int> Add(int productId, int amount);
 		void Delete(int productId, int amount);
-		void AddToCart(int? productId, int? amount);
 	}
 }

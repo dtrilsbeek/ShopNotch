@@ -76,31 +76,9 @@ namespace ShopNotch.Controllers
 
 		public IActionResult Cart()
 		{
-			CartViewModel model;
-			var cart = HttpContext.Session.GetString("CartItems");
+			var model = new CartViewModel();
 
-			if (!string.IsNullOrEmpty(cart))
-			{
-				model = JsonConvert.DeserializeObject<CartViewModel>(cart);
-			}
-			else
-			{
-				model = new CartViewModel
-				{
-					Items = new Dictionary<int, int>()
-				};
-			}
-
-			var products = new Dictionary<Product, int>();
-			foreach (var cartItem in model.Items)
-			{
-				var product = _productLogic.GetById(cartItem.Key);
-				if (product == null) return NotFound();
-
-				products[product] = cartItem.Value;
-			}
-
-			model.Products = products;
+			model.Products = _cartLogic.GetAllProducts();
 
 			return View(model);
 		}
@@ -117,6 +95,24 @@ namespace ShopNotch.Controllers
 			_cartLogic.Add((int) productId, (int) amount);
 
 			return new OkResult();
+		}
+		
+		
+		private void AddToSession(Dictionary<int, int> items)
+		{
+			HttpContext.Session.SetString("CartItems", JsonConvert.SerializeObject(items));
+		}
+
+		private Dictionary<int, int> GetFromSession()
+		{
+			var items = HttpContext.Session.GetString("CartItems");
+
+			if (!string.IsNullOrEmpty(items))
+			{
+				return JsonConvert.DeserializeObject<Dictionary<int, int>>(items);
+			}
+
+			return default(Dictionary<int, int>);
 		}
 		
 	}

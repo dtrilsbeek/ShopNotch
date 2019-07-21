@@ -12,21 +12,25 @@
 
     <div class="cart-detail-main">
 
-        @foreach (var product in Model.Products)
+        @foreach (var item in Model.Products)
         {
-            total += (product.Key.Price * product.Value);
+            var product = item.Value.Product;
+            var amount = item.Value.Amount;
+            
+            total += (product.Price * amount);
+            
             <div class="product row">
                 <div class="product-info-group col-sm">
-                    <div class="product-title">@product.Key.Name</div>
+                    <div class="product-title">@product.Name</div>
                 </div>
                 <div class="product-info-group col-sm">
-                    <div class="product-price">Price: @product.Key.Price</div>
+                    <div class="product-price">Price: @product.Price</div>
                 </div>
                 <div class="product-info-group col-sm">
-                    <div class="product-amount">Amount: @product.Value</div>
+                    <div class="product-amount">Amount: @amount</div>
                 </div>
                 <div class="product-info-group col-sm">
-                    <div class="product-subtotal">Subtotal: @(product.Key.Price * product.Value)</div>
+                    <div class="product-subtotal">Subtotal: @(product.Price * amount)</div>
                 </div>
             </div>
         }
