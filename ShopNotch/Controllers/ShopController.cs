@@ -18,11 +18,12 @@ namespace ShopNotch.Controllers
 	{
 		private ICategoryLogic _categoryLogic;
 		private IProductLogic _productLogic;
-
-		public ShopController(ICategoryLogic categoryLogic, IProductLogic productLogic)
+		private ICartLogic _cartLogic;
+		public ShopController(ICategoryLogic categoryLogic, IProductLogic productLogic, ICartLogic cartLogic)
 		{
 			_categoryLogic = categoryLogic;
 			_productLogic = productLogic;
+			_cartLogic = cartLogic;
 		}
 
 		public IActionResult Index()
@@ -113,38 +114,10 @@ namespace ShopNotch.Controllers
 
 			if (product == null) return NotFound();
 
-			CartViewModel model;
-			var cart = HttpContext.Session.GetString("CartItems");
-
-			if (!string.IsNullOrEmpty(cart))
-			{
-				model = JsonConvert.DeserializeObject<CartViewModel>(cart);
-			}
-			else
-			{
-				model = new CartViewModel
-				{
-					Items = new Dictionary<int, int>()
-				};
-			}
-
-			AddToDictionary(model.Items, (int) productId, (int) amount);
-
-			HttpContext.Session.SetString("CartItems", JsonConvert.SerializeObject(model));
+			_cartLogic.Add((int) productId, (int) amount);
 
 			return new OkResult();
 		}
-
-		private void AddToDictionary(Dictionary<int, int> dictionary, int productId, int amount)
-		{
-			if (dictionary.ContainsKey(productId))
-			{
-				dictionary[productId] += amount;
-			}
-			else
-			{
-				dictionary[productId] = amount;
-			}
-		}
+		
 	}
 }

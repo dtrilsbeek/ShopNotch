@@ -20,7 +20,7 @@ namespace Logic
 			return _items;
 		}
 
-		public Dictionary<int, CartItem> GetAllProduct()
+		public Dictionary<int, CartItem> GetAllProducts()
 		{
 			var products = new Dictionary<int, CartItem>();
 
@@ -50,8 +50,8 @@ namespace Logic
 
 			return products;
 		}
-		
-		private void Add(int productId, int amount)
+
+		public void Add(int productId, int amount)
 		{
 			if (_items.ContainsKey(productId))
 			{
@@ -66,6 +66,37 @@ namespace Logic
 		public void Delete(int productId, int amount)
 		{
 
+		}
+		
+		
+		public void AddToCart(int? productId, int? amount)
+		{
+			if (productId == null || amount == null) return NotFound();
+
+			var product = _productLogic.GetById((int) productId);
+
+			if (product == null) return NotFound();
+
+			CartViewModel model;
+			var cart = HttpContext.Session.GetString("CartItems");
+
+			if (!string.IsNullOrEmpty(cart))
+			{
+				model = JsonConvert.DeserializeObject<CartViewModel>(cart);
+			}
+			else
+			{
+				model = new CartViewModel
+				{
+					Items = new Dictionary<int, int>()
+				};
+			}
+
+			AddToDictionary(model.Items, (int) productId, (int) amount);
+
+			HttpContext.Session.SetString("CartItems", JsonConvert.SerializeObject(model));
+
+			return new OkResult();
 		}
 	}
 }
