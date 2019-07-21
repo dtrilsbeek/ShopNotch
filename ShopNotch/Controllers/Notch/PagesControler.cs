@@ -1,4 +1,5 @@
-﻿using Data.Models;
+﻿/*
+using Data.Models;
 using Logic;
 using Logic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -131,3 +132,4 @@ namespace ShopNotch.Controllers.Notch
 		}
     }
 }
+*/
